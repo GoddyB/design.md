@@ -6,4 +6,4 @@ Do not reopen.
 
 Pico: `--pico-primary-background: #000000`. Links `--pico-primary: #ededed` (`{colors.on-surface}`).
 
-Next: [`on-primary.md`](./on-primary.md).
+Next (after on-primary **a**): [`error.md`](./error.md).

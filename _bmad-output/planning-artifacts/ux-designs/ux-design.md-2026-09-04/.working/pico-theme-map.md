@@ -14,8 +14,8 @@ Sketch only. Remaining husk opens stay TODO.
 | `tertiary` / `gray-900` | `#a1a1a1` | `--pico-muted-color`, `--pico-h6-color`, `--pico-mark-background-color` |
 | `gray-400` | `#2e2e2e` | `--pico-muted-border-color`, `--pico-table-border-color`, `--pico-form-element-border-color` (until husk `outline`) |
 | `gray-100` | `#1a1a1a` | `--pico-secondary-hover-background`, `--pico-dropdown-hover-background-color`; second-action rest fill (chrome, not a hue) |
-| `primary` | `#000000` | `--pico-primary-background` (void). Not a pill. |
-| `on-primary` | `#ededed` | `--pico-primary-inverse` / `--arch-on-primary` |
+| `primary` | `#000000` | `--pico-primary-background` (void, option **c**). Not a pill. |
+| `on-primary` | `#ededed` | `--pico-primary-inverse` / `--arch-on-primary` (option **a**) |
 | primary links | `#ededed` | `--pico-primary` (`--arch-primary-link`) — Pico split from button fill |
 | secondary omitted | chrome | `--pico-secondary-background: gray-100` + thin beam; `.outline.secondary` stays ghost |
 | no elevation | — | `--pico-box-shadow: none`, `--pico-card-box-shadow: none` |

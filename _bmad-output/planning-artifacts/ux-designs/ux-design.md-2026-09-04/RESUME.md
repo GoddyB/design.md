@@ -36,7 +36,7 @@ Prior visual QA failure: husk-board painted the word “Archanglic” and offere
 | `secondary` / `on-secondary` | omitted | Ghost on surface. No second fill hue. Second-action look is chrome (light shade + thin beam), not a palette. |
 | `tertiary` | `#a1a1a1` | Rare emphasis badge. Distinct from ghost secondary. |
 | `primary` | `#000000` | **c.** Void fill + hairline / thin rainbow-glass beam. Not a filled pill. Pico: `--pico-primary-background: #000`; links `--pico-primary: #ededed`. |
-| `on-primary` | `#ededed` | Ink on the void/beam Deploy. Same as `{colors.on-surface}`. Pico `--pico-primary-inverse`. |
+| `on-primary` | `#ededed` | **a.** Ink on the void/beam Deploy. Same as `{colors.on-surface}`. Pico `--pico-primary-inverse`. |
 | Geist accent ladders | **not used** | Do not reuse blue/red/amber/green/teal/purple/pink as brand accents. |
 | Snippet/tree | [`archanglic.css`](./archanglic.css) | DESIGN.md only points at it. Tree: canopy `#7ee787`, bough Grok-orange TBD, twig Knicks `#006bb6`. |
 | `border-beam` | analogue, not a husk slot | Rainbow-glass = edge-only chromatic seam. **SSOT:** [`border-beam.css`](./border-beam.css). Pico/nav/demos adapt via classes and `--beam-size` / `--beam-strength` / `--beam-duration` / `--beam-placement`. Not React. |

@@ -6,9 +6,9 @@
  *   <html data-theme="dark">
  *
  * Tokens: DESIGN.md colors + archanglic.css snippet/tree.
- * Husk primary is locked: void fill #000 + hairline / thin beam.
+ * Husk primary is locked (c): void fill #000 + hairline / thin beam.
  * Pico split: --pico-primary (links) = #ededed; --pico-primary-background = #000.
- * on-primary is locked #ededed. error remains TODO.
+ * on-primary is locked (a) #ededed. error remains TODO — not locked.
  *
  * Rainbow-glass: @import ./border-beam.css (the only recipe).
  * This file may set --beam-* knobs and require opt-in classes.
@@ -32,10 +32,10 @@
   --arch-gray-900: #a1a1a1;
   --arch-tertiary: #a1a1a1;
 
-  /* Locked: husk primary = void fill. Pico split: links stay on-surface. */
+  /* Locked (c): husk primary = void fill. Pico split: links stay on-surface. */
   --arch-primary: #000000;
   --arch-primary-link: #ededed;
-  /* Locked: ink on the void/beam Deploy. Same voice as on-surface. */
+  /* Locked (a): ink on the void/beam Deploy. Same voice as on-surface. */
   --arch-on-primary: #ededed;
   /* TODO — Goddy error a/b/c. No red locked. Invalid chrome uses gray until pick. */
   --arch-error: var(--arch-gray-500);

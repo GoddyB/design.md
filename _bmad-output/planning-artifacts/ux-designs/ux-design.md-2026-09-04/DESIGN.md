@@ -42,7 +42,7 @@ Snippet and tree painting live in [`archanglic.css`](./archanglic.css). This fil
 
 **Implementation target:** a [Pico CSS](https://picocss.com/) v2 custom theme (classless or classed) plus vanilla rainbow-glass. Load Pico, then [`archanglic.pico.css`](./archanglic.pico.css) (which `@import`s [`border-beam.css`](./border-beam.css) — the only beam recipe). One dark appearance (`data-theme="dark"`; Pico light is collapsed into the void). Mapping: [`.working/pico-theme-map.md`](.working/pico-theme-map.md). Goddy does not use React; do not implement chrome with the npm `border-beam` package.
 
-Husk `primary` is **locked**: void fill `{colors.primary}` (`#000000`) plus hairline / thin rainbow-glass beam. Not a filled pill. Pico split: `--pico-primary-background` is the void; `--pico-primary` (links) stays `{colors.on-surface}` (`#ededed`). Husk `on-primary` is **locked** `{colors.on-primary}` (`#ededed`) — same voice as page text. Next slot is `error` — [`.working/decision-boards/`](.working/decision-boards/). Do not treat any Geist accent ladder as a stand-in.
+Husk `primary` is **locked (c)**: void fill `{colors.primary}` (`#000000`) plus hairline / thin rainbow-glass beam. Not a filled pill. Pico split: `--pico-primary-background` is the void; `--pico-primary` (links) stays `{colors.on-surface}` (`#ededed`). Husk `on-primary` is **locked (a)** `{colors.on-primary}` (`#ededed`) — same voice as page text. Next slot is `error` — [`.working/decision-boards/`](.working/decision-boards/). Do not treat any Geist accent ladder as a stand-in.
 
 ## Brand & Style
 
@@ -102,8 +102,8 @@ Geist gray / canvas tokens fork. Geist **blue / red / amber / green / teal / pur
 
 - **Void (`surface`, `background`, `background-200`, `#000000`).** Primary background. Always used unless an alternate is specified. Default element fill is this, not Geist’s `#0a0a0a`.
 - **Voice (`on-surface`, `on-background`, `#ededed`).** The white used for text. Default type preset: `{colors.on-surface}` on `{colors.surface}`. Not a gray step.
-- **Primary (`#000000`).** Void fill of the main action. Not wallpaper. Not a pill. The control is hairline `{colors.outline}` (TODO, placeholder white) plus thin `.border-beam`. Pico: `--pico-primary-background: #000000`; links `--pico-primary: #ededed`.
-- **On-primary (`#ededed`).** Ink on the void/beam Deploy. Same voice as `{colors.on-surface}`. Pico `--pico-primary-inverse`.
+- **Primary (`#000000`, option c).** Void fill of the main action. Not wallpaper. Not a pill. The control is hairline `{colors.outline}` (TODO, placeholder white) plus thin `.border-beam`. Pico: `--pico-primary-background: #000000`; links `--pico-primary: #ededed`.
+- **On-primary (`#ededed`, option a).** Ink on the void/beam Deploy. Same voice as `{colors.on-surface}`. Pico `--pico-primary-inverse`.
 - **Rare fill (`background-100`, `#0a0a0a`).** Alternate surface only, used rarely. `#ededed` on `#0a0a0a` is **not** a type preset.
 - **Gray ladder (`gray-100`–`gray-900`).** Geist neutrals for component fill / hover / borders / secondary text. Roles stand until overridden. `{colors.gray-400}` (`#2e2e2e`) is the default hairline in the ladder; husk `outline` may still replace that for chrome (TODO).
 - **Tertiary (`#a1a1a1`).** Rare emphasis badge. Same hex as `{colors.gray-900}`; the slot exists so a badge is not a ghost second-action. Must stay distinct from omitted secondary.

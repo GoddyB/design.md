@@ -1,6 +1,6 @@
 # Queued husk cards — do not answer yet
 
-Rapid-fire after `error` lands. Primary and on-primary are locked (void + beam; ink `#ededed`). Each card is a/b/c. Column swatches; 3-wide with side-scroll, never stacked full-width.
+Rapid-fire after `error` lands. Primary is locked **c** (void + beam); on-primary is locked **a** (`#ededed`). Each card is a/b/c. Column swatches; 3-wide with side-scroll, never stacked full-width.
 
 Contrast vs locked `{colors.surface}` `#000000` and `{colors.on-surface}` `#ededed`. AA = WCAG 4.5:1.
 
