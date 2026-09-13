@@ -18,7 +18,7 @@
  *
  * Pico aliases (same recipe, so a tweak here updates every surface):
  *   primary button / [type=submit]              full-box
- *   nav                                         bottom-edge
+ *   nav, [role=navigation], .arch-navbar        bottom-edge (required — not a gray hairline)
  *   button.secondary (not .outline)             full-box, quieter knobs from the theme
  *
  * Fill stays the element's own background. No React.
@@ -55,7 +55,7 @@
 .border-beam-focus:focus-within,
 :where(button, [type="submit"]):not(.secondary, .contrast, .outline, .no-beam),
 :where(button.secondary, [type="submit"].secondary):not(.outline, .no-beam),
-:where(nav):not(.no-beam) {
+:where(nav, [role="navigation"], .arch-navbar) {
   position: relative;
   isolation: isolate;
   --beam-placement: full-box;
@@ -65,7 +65,7 @@
 .border-beam-line,
 [data-beam-placement="bottom-edge"],
 [data-border-beam="line"],
-:where(nav):not(.no-beam) {
+:where(nav, [role="navigation"], .arch-navbar) {
   --beam-placement: bottom-edge;
 }
 
@@ -80,7 +80,7 @@
 .border-beam-focus:focus-within::after,
 :where(button, [type="submit"]):not(.secondary, .contrast, .outline, .no-beam)::after,
 :where(button.secondary, [type="submit"].secondary):not(.outline, .no-beam)::after,
-:where(nav):not(.no-beam)::after {
+:where(nav, [role="navigation"], .arch-navbar)::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -107,7 +107,7 @@
 .border-beam-line::after,
 [data-beam-placement="bottom-edge"]::after,
 [data-border-beam="line"]::after,
-:where(nav):not(.no-beam)::after {
+:where(nav, [role="navigation"], .arch-navbar)::after {
   inset: auto 0 0 0;
   height: max(2px, var(--beam-size));
   padding: 0;
@@ -133,9 +133,9 @@
     arch-beam-breathe 2.3s ease-in-out infinite;
 }
 
-.no-beam::after,
-.no-beam:focus-visible::after,
-.no-beam:focus-within::after {
+.no-beam:not(nav, [role="navigation"], .arch-navbar)::after,
+.no-beam:not(nav, [role="navigation"], .arch-navbar):focus-visible::after,
+.no-beam:not(nav, [role="navigation"], .arch-navbar):focus-within::after {
   content: none !important;
   display: none !important;
   animation: none !important;
@@ -166,7 +166,7 @@
   .border-beam-focus:focus-within::after,
   :where(button, [type="submit"]):not(.secondary, .contrast, .outline, .no-beam)::after,
   :where(button.secondary, [type="submit"].secondary):not(.outline, .no-beam)::after,
-  :where(nav):not(.no-beam)::after {
+  :where(nav, [role="navigation"], .arch-navbar)::after {
     animation: none;
     --beam-angle: 40deg;
     opacity: calc(var(--beam-strength) * 0.7);

@@ -125,11 +125,13 @@ Resolve one at a time. Board: [`.working/decision-boards/`](.working/decision-bo
 
 ### Rainbow-glass (not a husk slot)
 
-Muted pastel chromatic seam on accents, shimmers, active shading, and some chrome borders. Optional, in the bag. Does **not** replace `{colors.gray-400}` / `500` / `600` and does **not** fill surfaces.
+Muted pastel chromatic seam on accents, shimmers, active shading, and some chrome borders. Optional, in the bag — **except navbar bottoms**, which always use the shared bottom-edge beam. Does **not** replace `{colors.gray-400}` / `500` / `600` on other chrome and does **not** fill surfaces.
 
 Implementation: **one file** — [`border-beam.css`](./border-beam.css). `archanglic.pico.css` `@import`s it. [`.working/border-beam-vanilla.css`](.working/border-beam-vanilla.css) re-exports it. Do **not** copy `@keyframes`, `@property --beam-angle`, or the conic-gradient recipe into nav CSS, the Pico theme, or demos.
 
-Opt-in / adapt via classes or knobs: `.border-beam` (full-box), `.border-beam-bottom` / `data-beam-placement="bottom-edge"` (navbar), `.border-beam-focus` (focus rings), `--beam-size`, `--beam-strength`, `--beam-duration`, `--beam-placement`. Pico wires primary Deploy, `nav` bottoms, and `button.secondary` chrome to that same recipe (opt out with `.no-beam`). The React `border-beam` library is the analogue that named the effect — not a dependency. Size/strength knobs are TODO.
+**Navbar rule (locked):** every navbar bottom is rainbow-glass, never a plain gray hairline. Selectors: `nav`, `[role="navigation"]`, `.arch-navbar`. Placement `--beam-placement: bottom-edge`. Knobs `--beam-size` / `--beam-strength`. Do not put `.no-beam` on a navbar.
+
+Opt-in / adapt via classes or knobs for other chrome: `.border-beam` (full-box), `.border-beam-bottom` / `data-beam-placement="bottom-edge"`, `.border-beam-focus` (focus rings), `--beam-size`, `--beam-strength`, `--beam-duration`, `--beam-placement`. Pico also wires primary Deploy and `button.secondary` to that same recipe. The React `border-beam` library is the analogue that named the effect — not a dependency. Size/strength knobs are TODO.
 
 Honor `prefers-reduced-motion`. Do not band the fade. Do not treat stock `strength: 1` orbit as the signature — that is a 3-second medal.
 
@@ -147,6 +149,7 @@ Text-on-fill ≥ 4.5:1 WCAG AA. Hover / active / focus increase contrast vs rest
 - Do set body text in `{colors.on-surface}` (`#ededed`) on that canvas.
 - Do treat rainbow-glass as optional seam, not a filled rainbow surface.
 - Do write Blade errors as rustc: what is broken, you cannot do this, may I suggest _x_.
+- Do put the shared bottom-edge beam on every navbar (`nav`, `[role="navigation"]`, `.arch-navbar`). Never a gray hairline there.
 - Do honor `prefers-reduced-motion` on any beam.
 - Don’t fork Geist blue/red/amber/green/teal/purple/pink as brand accents.
 - Don’t add a light theme, `*-dark` pairs, or a second appearance in this file.
@@ -159,3 +162,4 @@ Text-on-fill ≥ 4.5:1 WCAG AA. Hover / active / focus increase contrast vs rest
 - Don’t leave Pico’s default cyan `--pico-primary: #01aaff` in a shipped theme.
 - Don’t implement rainbow-glass with the React `border-beam` package.
 - Don’t duplicate the beam recipe; edit [`border-beam.css`](./border-beam.css) only.
+- Don’t use `{colors.gray-400}` as a navbar bottom hairline.

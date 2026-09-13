@@ -11,8 +11,8 @@
  * on-primary is locked (a) #ededed. error remains TODO — not locked.
  *
  * Rainbow-glass: @import ./border-beam.css (the only recipe).
- * This file may set --beam-* knobs and require opt-in classes.
- * Do not copy @property, @keyframes, or gradients here. Not React.
+ * Navbar bottoms are required (nav, [role=navigation], .arch-navbar) — not a gray hairline.
+ * This file may set --beam-* knobs. Do not copy @property, @keyframes, or gradients here. Not React.
  */
 @import url("./border-beam.css");
 
@@ -213,13 +213,26 @@ button.secondary:not(.outline, .no-beam),
   --beam-placement: full-box;
 }
 
-nav:not(.no-beam) {
+/* Theme rule: every navbar bottom is the shared beam, never a gray hairline.
+ * Recipe stays in border-beam.css. Knobs only. */
+nav,
+[role="navigation"],
+.arch-navbar {
   --beam-size: 2px;
   --beam-strength: 0.7;
   --beam-saturation: 0.85;
   --beam-duration: 4s;
   --beam-placement: bottom-edge;
   overflow: visible;
+  border-bottom: none;
+}
+
+.arch-navbar:not(nav) {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
 }
 
 .border-beam-focus:focus-visible,

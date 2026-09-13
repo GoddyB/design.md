@@ -32,7 +32,7 @@ When Goddy edits `border-beam.css`, every surface updates.
 
 Classes: `.border-beam` · `.border-beam-bottom` / `.border-beam-line` · `.border-beam-focus` · `.border-beam-sm` · `.border-beam-md` · `.border-beam-pulse` · `.border-beam-quiet` · `.border-beam-present` · `.border-beam-loud` · `.no-beam`.
 
-Pico aliases (same file, not a second recipe): primary `button`, `nav` (bottom-edge), `button.secondary`.
+Pico aliases (same file, not a second recipe): primary `button`, **all navbars** (`nav` / `[role=navigation]` / `.arch-navbar`, bottom-edge, required), `button.secondary`.
 
 `prefers-reduced-motion`: freeze the orbit, keep a static seam.
 

@@ -38,7 +38,7 @@ Geist gray-100…900 also exist as `--arch-gray-*` on `:root` for anything Pico 
 | Surface | How it opts in |
 |---|---|
 | primary Deploy | Pico `button` / `[type=submit]` (not `.secondary` / `.contrast` / `.outline`) — full-box. Opt out: `.no-beam` |
-| navbar bottom | `nav` — `--beam-placement: bottom-edge` (class `.border-beam-bottom` also works) |
+| navbar bottom | **required.** `nav`, `[role="navigation"]`, `.arch-navbar` — `--beam-placement: bottom-edge`. Not gray-400. `.no-beam` does not apply. |
 | second-action | `button.secondary` (not `.outline`) — light shade + thin full-box beam |
 | focus rings | class `.border-beam-focus` on a wrapper (`:focus-within`); not on `<input>` itself |
 | any other chrome | class `.border-beam` or `data-beam-placement` |
@@ -55,7 +55,7 @@ Variables apply to both builds.
 | `button.secondary` | second-action chrome (gray-100 + thin beam) |
 | `button.outline.secondary` | ghost (no fill hue, no auto-beam) |
 | `button.contrast` | inverted type-white pill (Pico contrast, not husk primary) |
-| `nav` | bottom-edge beam |
+| `nav` / `[role="navigation"]` / `.arch-navbar` | **required** bottom-edge beam. Never a gray hairline. |
 | `mark` | tertiary badge |
 | `.border-beam` / `.border-beam-bottom` / `.border-beam-focus` | extra rainbow-glass opt-in |
 
@@ -66,3 +66,4 @@ Variables apply to both builds.
 - Do not use the React `border-beam` package in this theme.
 - Do not duplicate the beam recipe in this file, nav CSS, or demos.
 - Do not fill `{colors.primary}` as a light pill.
+- Do not use a gray hairline under a navbar.

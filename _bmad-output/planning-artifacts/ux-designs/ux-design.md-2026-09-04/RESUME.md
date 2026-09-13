@@ -4,7 +4,9 @@ Cloud session 2026-09-13. Continues the paused coaching run on `main` (`wip: Arc
 
 **Implementation target (Goddy, this session):** Archanglic is a **Pico CSS v2 custom theme** (classless or classed) plus a **vanilla CSS** rainbow-glass edge. Not a React component library. The npm `border-beam` package remains the visual analogue only.
 
-**Goddy rule — beam SSOT:** the recipe lives in **[`border-beam.css`](./border-beam.css)** only. Pico `@import`s it. Demos and nav opt in via classes / `--beam-*` knobs. Do not copy `@keyframes`, `@property --beam-angle`, or conic-gradient recipes elsewhere.
+**Goddy rule — beam SSOT:** the recipe lives in **[`border-beam.css`](./border-beam.css)** only. Pico `@import`s it. Do not copy `@keyframes`, `@property --beam-angle`, or conic-gradient recipes elsewhere.
+
+**Navbar rule:** every navbar bottom uses that beam (`nav`, `[role="navigation"]`, `.arch-navbar`). Never a gray hairline.
 
 ## Where it stopped
 
@@ -12,7 +14,7 @@ Colors, mid husk slots. Brand & Style + voice already locked. The last live dash
 
 - [`.working/decision-boards/index.html`](.working/decision-boards/index.html) — **error a/b/c now** (three fat columns; they do not stack)
 - [`.working/decision-boards/error.md`](.working/decision-boards/error.md) — same question in text
-- [`.working/pico-theme-demo.html`](.working/pico-theme-demo.html) — Pico classed sketch: void Deploy + shared beam, nav `bottom-edge`
+- [`.working/pico-theme-demo.html`](.working/pico-theme-demo.html) — Pico classed sketch: void Deploy + shared beam; **navbar bottoms required** (`nav.arch-navbar` + `[role=navigation]`)
 - Queued slots: [`.working/decision-boards/queued.md`](.working/decision-boards/queued.md)
 
 Prior visual QA failure: husk-board painted the word “Archanglic” and offered `#ededed` / `#ffffff` / alias-of-a. Those two whites are **1.17:1** against each other — they look identical. This board does not repeat that trio.
@@ -39,7 +41,7 @@ Prior visual QA failure: husk-board painted the word “Archanglic” and offere
 | `on-primary` | `#ededed` | **a.** Ink on the void/beam Deploy. Same as `{colors.on-surface}`. Pico `--pico-primary-inverse`. |
 | Geist accent ladders | **not used** | Do not reuse blue/red/amber/green/teal/purple/pink as brand accents. |
 | Snippet/tree | [`archanglic.css`](./archanglic.css) | DESIGN.md only points at it. Tree: canopy `#7ee787`, bough Grok-orange TBD, twig Knicks `#006bb6`. |
-| `border-beam` | analogue, not a husk slot | Rainbow-glass = edge-only chromatic seam. **SSOT:** [`border-beam.css`](./border-beam.css). Pico/nav/demos adapt via classes and `--beam-size` / `--beam-strength` / `--beam-duration` / `--beam-placement`. Not React. |
+| `border-beam` | analogue, not a husk slot | Rainbow-glass = edge-only chromatic seam. **SSOT:** [`border-beam.css`](./border-beam.css). Navbar bottoms **required** (`nav` / `[role=navigation]` / `.arch-navbar`, `--beam-placement: bottom-edge`). Other chrome opt-in via classes and `--beam-*` knobs. Not React. |
 
 **Elevation constraint (locked, phase still later).** No materials or layers on fills. No WIG layered shadows. Depth = hairline / contrast / optional rainbow-glass on chrome.
 

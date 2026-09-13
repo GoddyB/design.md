@@ -26,7 +26,7 @@
 </style>
 </head>
 <body>
-<nav>
+<nav class="arch-navbar">
   <ul>
     <li><strong>^^ Archanglic</strong></li>
   </ul>
@@ -42,7 +42,7 @@
 
   <article class="border-beam border-beam-sm border-beam-present">
     <header>Rainbow-glass opt-in</header>
-    <p>This <code>article</code> uses <code>.border-beam</code> (full-box). The <code>nav</code> above uses placement <code>bottom-edge</code>. Fill stays <code>#000</code>. Knobs: <code>--beam-size</code> / <code>--beam-strength</code> / <code>--beam-duration</code>. Not React.</p>
+    <p>This <code>article</code> uses <code>.border-beam</code> (full-box). The Pico <code>nav.arch-navbar</code> above — and any <code>[role="navigation"]</code> — use placement <code>bottom-edge</code>. Not a gray hairline. Fill stays <code>#000</code>. Knobs: <code>--beam-size</code> / <code>--beam-strength</code> / <code>--beam-duration</code>. Not React.</p>
     <footer class="todo">Beam size/strength still queued a/b/c. Tweak <code>border-beam.css</code> and every surface updates.</footer>
   </article>
 
@@ -74,8 +74,16 @@
   <h2>Tertiary</h2>
   <p>Rare emphasis: <mark>BETA</mark> maps to <code>#a1a1a1</code>. Ink on it is TODO.</p>
 
+  <h2>Navbar pattern</h2>
+  <div class="arch-navbar" role="navigation" aria-label="Secondary">
+    <strong>^^</strong>
+    <a href="#">Docs</a>
+    <a href="#">Spec</a>
+  </div>
+  <p class="todo">Theme rule: every navbar bottom is the shared beam (<code>nav</code>, <code>[role="navigation"]</code>, <code>.arch-navbar</code>). Not <code>gray-400</code>.</p>
+
   <h2>Classless-shaped copy</h2>
-  <p>Same tokens apply if you swap the Pico stylesheet for <code>pico.classless.min.css</code>. Keep <code>archanglic.pico.css</code> after it. Add <code>class="border-beam"</code> where extra chrome should feel alive. Primary buttons, <code>nav</code>, and <code>button.secondary</code> are already wired.</p>
+  <p>Same tokens apply if you swap the Pico stylesheet for <code>pico.classless.min.css</code>. Keep <code>archanglic.pico.css</code> after it. Add <code>class="border-beam"</code> where extra chrome should feel alive. Primary buttons and <code>button.secondary</code> are wired. Navbar bottoms are required.</p>
 </main>
 </body>
 </html>
