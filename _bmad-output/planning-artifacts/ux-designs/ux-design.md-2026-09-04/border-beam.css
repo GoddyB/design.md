@@ -159,7 +159,6 @@ button.secondary:not(.outline, .no-beam)::before,
   content: "";
   position: absolute;
   inset: 0;
-  z-index: 0;
   border-radius: inherit;
   pointer-events: none;
   background: var(--beam-inner-blobs);
