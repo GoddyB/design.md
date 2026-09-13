@@ -1,4 +1,6 @@
-# Rainbow-glass ≈ `border-beam` 1.3.0
+Rainbow-glass ≈ `border-beam` 1.3.0 (analogue). **Implementation is vanilla CSS**, not the React package — Goddy does not use React.
+
+See `.working/border-beam-vanilla.md` and `archanglic.pico.css` `.border-beam`.
 
 User: almost exactly the envisioned borders. Package: `border-beam` (Jakub Antalik). Demo: https://libraries.dev/beam.html README in `imports/border-beam-README.md`.
 

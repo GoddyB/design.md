@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Archanglic Pico theme sketch</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+<link rel="stylesheet" href="../archanglic.css">
+<link rel="stylesheet" href="../archanglic.pico.css">
+<link rel="stylesheet" href="./archanglic/fonts.css">
+<style>
+  :root { --pico-font-family-sans-serif: "Geist Sans", system-ui, sans-serif; }
+  body { padding-bottom: 4rem; }
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  @media (max-width: 860px) {
+    .grid-3 { grid-template-columns: repeat(3, minmax(220px, 1fr)); overflow-x: auto; }
+  }
+  .todo {
+    color: var(--arch-tertiary);
+    font-size: 0.85rem;
+  }
+</style>
+</head>
+<body>
+<main class="container">
+  <h1>^^ Archanglic</h1>
+  <p>Pico classed build + <code>archanglic.pico.css</code>. Dark only. Primary/error are <strong>TODO placeholders</strong> (option a / gray) so Pico cyan never shows.</p>
+
+  <article class="border-beam border-beam-sm border-beam-present">
+    <header>Rainbow-glass opt-in</header>
+    <p>This <code>article</code> uses <code>.border-beam</code>. Fill stays <code>#000</code>. Seam is vanilla CSS (<code>--beam-size</code> / <code>--beam-strength</code>). Not React.</p>
+    <footer class="todo">Beam size/strength still queued a/b/c.</footer>
+  </article>
+
+  <h2>Actions</h2>
+  <p>
+    <button>Deploy</button>
+    <button class="secondary">Read</button>
+    <button class="outline secondary">Ghost</button>
+    <button class="contrast">Contrast</button>
+  </p>
+  <p class="todo">Filled <code>Deploy</code> uses placeholder <code>--arch-primary: #ededed</code> (board option a). Secondary is ghost — slot omitted.</p>
+
+  <h2>Form</h2>
+  <form>
+    <label>
+      Token name
+      <input name="token" placeholder="colors.primary…" aria-invalid="true">
+      <small>This token does not resolve. You cannot ship it. Invalid border is gray until husk <code>error</code>.</small>
+    </label>
+    <button type="submit">Ship</button>
+  </form>
+
+  <h2>Tertiary</h2>
+  <p>Rare emphasis: <mark>BETA</mark> maps to <code>#a1a1a1</code>. Ink on it is TODO.</p>
+
+  <h2>Classless-shaped copy</h2>
+  <p>Same tokens apply if you swap the Pico stylesheet for <code>pico.classless.min.css</code>. Keep <code>archanglic.pico.css</code> after it. Add <code>class="border-beam"</code> where the bag opens.</p>
+</main>
+</body>
+</html>

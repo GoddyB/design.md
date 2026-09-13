@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Archanglic — husk primary</title>
+<link rel="stylesheet" href="../archanglic/fonts.css">
+<link rel="stylesheet" href="../../archanglic.css">
+<link rel="stylesheet" href="../../archanglic.pico.css">
+<style>
+  html, body {
+    margin: 0;
+    background: #000;
+    color: #ededed;
+    font-family: "Geist Sans", ui-sans-serif, system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+  main { padding: 20px 16px 72px; max-width: none; }
+  h1 { font-size: 16px; font-weight: 600; margin: 0 0 6px; }
+  h2 { font-size: 14px; font-weight: 600; margin: 28px 0 10px; }
+  .lede, .hint, .meta { color: #a1a1a1; }
+  .lede { max-width: 52em; margin: 0 0 20px; }
+  code {
+    font-family: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: .92em;
+    padding: .12em .38em;
+    border: 1px solid #2e2e2e;
+    border-radius: 6px;
+  }
+  pre.ascii {
+    margin: 12px 0;
+    padding: 12px;
+    border: 1px solid #2e2e2e;
+    border-radius: 8px;
+    font-family: "Geist Mono", ui-monospace, monospace;
+    font-size: 12px;
+    line-height: 1.4;
+    overflow-x: auto;
+    background: #000;
+  }
+  .board {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(240px, 1fr));
+    gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+  }
+  /* Never stack: side-scroll under 860px. Prior dash stacked and failed QA. */
+  @media (max-width: 860px) {
+    .board { grid-template-columns: repeat(3, minmax(240px, 1fr)); }
+  }
+  .col {
+    min-width: 240px;
+    border: 1px solid #2e2e2e;
+    display: flex;
+    flex-direction: column;
+  }
+  .fat {
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 12px;
+    font-family: "Geist Mono", ui-monospace, monospace;
+    font-size: 12px;
+  }
+  .fat b { font-size: 18px; }
+  .chrome {
+    padding: 14px 12px 12px;
+    background: #000;
+    border-top: 1px solid #2e2e2e;
+  }
+  .word { color: #ededed; font-weight: 600; margin: 0 0 10px; }
+  .pill {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    font-weight: 500;
+  }
+  .ghost {
+    background: transparent;
+    color: #ededed;
+    border-color: #ededed;
+    margin-left: 8px;
+  }
+  .meta { padding: 10px 12px 12px; font-size: 12px; }
+  .meta b { color: #ededed; }
+  .note {
+    max-width: 52em;
+    margin: 16px 0 0;
+    color: #a1a1a1;
+    font-size: 13px;
+  }
+  .queued .fat { min-height: 96px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Archanglic — husk <code>primary</code></h1>
+  <p class="lede">
+    Implementation: Pico CSS theme + vanilla <code>.border-beam</code>. Answer this slot only.
+    The <strong>fat column is the token</strong>. The word “Archanglic” is always
+    <code>#ededed</code> — it is not the pick. Columns do not stack; scroll sideways.
+  </p>
+
+<pre class="ascii">+--------------------------------+
+| ^^                   About Work|
+| Archanglic                     |  &lt;- always #ededed (not the token)
+| [ Deploy ]    Read             |
+|  #########                     |
+|  &lt;- this FILL is primary       |
++--------------------------------+</pre>
+
+  <p class="hint">Paws: “Primary: Use for main actions, active states, and highlights.” Atmospheric Glass: “Primary buttons are solid white for maximum contrast.” SpaceX/LamaLama: “primary action: no distinct CTA color.”</p>
+
+  <div class="board" role="list">
+    <article class="col" role="listitem" id="opt-a">
+      <div class="fat" style="background:#ededed;color:#000">
+        <span>a — THE TOKEN</span>
+        <b>#ededed</b>
+      </div>
+      <div class="chrome">
+        <p class="word">Archanglic</p>
+        <span class="pill" style="background:#ededed;color:#000">Deploy</span>
+        <span class="pill ghost">Read</span>
+      </div>
+      <p class="meta">
+        <b>a)</b> inverted type-white. vs <code>#000</code> 17.94:1 AA. vs <code>#ededed</code> 1.00:1 (cannot be on-primary). Pico: <code>--pico-primary-background: #ededed</code>.
+      </p>
+    </article>
+    <article class="col" role="listitem" id="opt-b">
+      <div class="fat" style="background:#8f8f8f;color:#000">
+        <span>b — THE TOKEN</span>
+        <b>#8f8f8f</b>
+      </div>
+      <div class="chrome">
+        <p class="word">Archanglic</p>
+        <span class="pill" style="background:#8f8f8f;color:#000">Deploy</span>
+        <span class="pill ghost">Read</span>
+      </div>
+      <p class="meta">
+        <b>b)</b> metal pill (Geist gray-700, no new hue). vs <code>#000</code> 6.49:1 AA. vs <code>#ededed</code> 2.76:1 — obviously dimmer than a.
+      </p>
+    </article>
+    <article class="col" role="listitem" id="opt-c">
+      <div class="fat border-beam border-beam-sm border-beam-quiet" style="background:#000;color:#ededed;border:1px solid #ededed;box-sizing:border-box">
+        <span>c — THE TOKEN</span>
+        <b>#000000</b>
+      </div>
+      <div class="chrome">
+        <p class="word">Archanglic</p>
+        <span class="pill border-beam border-beam-sm border-beam-quiet" style="background:#000;color:#ededed;border-color:#ededed">Deploy</span>
+        <span class="pill ghost">Read</span>
+      </div>
+      <p class="meta">
+        <b>c)</b> void fill + hairline/beam. Pico can keep <code>--pico-primary</code> (links) at <code>#ededed</code> while <code>--pico-primary-background</code> is <code>#000</code>.
+      </p>
+    </article>
+  </div>
+
+  <p class="note">
+    Dropped <code>#ffffff</code> / alias-of-a: those were 1.17:1 apart and failed visual QA.
+    Placeholder in <code>archanglic.pico.css</code> is option a until you pick — not locked.
+    Reply: <code>primary: a</code> · <code>b</code> · <code>c</code> · or a write-in hex that is not a Geist accent ladder.
+  </p>
+
+  <h2>Queued (do not answer yet)</h2>
+  <p class="hint">Cards: <a href="./queued.md">queued.md</a>. Pico demo: <a href="../pico-theme-demo.html">pico-theme-demo.html</a>.</p>
+</main>
+</body>
+</html>

@@ -1,0 +1,276 @@
+/* Archanglic — Pico CSS theme sketch (dark only).
+ *
+ * Load AFTER Pico (classless or classed):
+ *   <link rel="stylesheet" href="pico.min.css">
+ *   <link rel="stylesheet" href="archanglic.pico.css">
+ *   <html data-theme="dark">
+ *
+ * Tokens: DESIGN.md colors + archanglic.css snippet/tree.
+ * Husk primary / on-primary / error are TODO placeholders so Pico
+ * does not leak its default cyan (#01aaff). Placeholders are NOT locked.
+ *
+ * Rainbow-glass: .border-beam (vanilla CSS). Not the React npm package.
+ */
+:root {
+  --arch-surface: #000000;
+  --arch-on-surface: #ededed;
+  --arch-background-200: #000000;
+  --arch-background-100: #0a0a0a;
+  --arch-gray-100: #1a1a1a;
+  --arch-gray-200: #1f1f1f;
+  --arch-gray-300: #292929;
+  --arch-gray-400: #2e2e2e;
+  --arch-gray-500: #454545;
+  --arch-gray-600: #878787;
+  --arch-gray-700: #8f8f8f;
+  --arch-gray-800: #7d7d7d;
+  --arch-gray-900: #a1a1a1;
+  --arch-tertiary: #a1a1a1;
+
+  /* TODO — Goddy a/b/c. Placeholder = board option a so Pico cyan never shows. */
+  --arch-primary: #ededed;
+  --arch-on-primary: #000000;
+  /* TODO — Goddy error a/b/c. No red locked. Invalid chrome uses gray until pick. */
+  --arch-error: var(--arch-gray-500);
+  --arch-on-error: var(--arch-on-surface);
+  /* TODO — Goddy on-tertiary a/b/c. */
+  --arch-on-tertiary: #000000;
+  /* TODO — outline is white or beam, not gray-400. Placeholder hairline until pick. */
+  --arch-outline: var(--arch-on-surface);
+
+  --beam-size: 1px;
+  --beam-strength: 0.45;
+  --beam-duration: 4s;
+  --beam-saturation: 0.65;
+}
+
+@property --beam-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+/* One appearance. Collapse Pico light into the void so data-theme="light" cannot leak. */
+:root,
+:host,
+[data-theme="dark"],
+[data-theme="light"],
+:root:not([data-theme="dark"]),
+:host(:not([data-theme="dark"])) {
+  color-scheme: dark;
+
+  --pico-background-color: var(--arch-surface);
+  --pico-color: var(--arch-on-surface);
+  --pico-text-selection-color: color-mix(in srgb, var(--arch-on-surface) 22%, transparent);
+  --pico-muted-color: var(--arch-tertiary);
+  --pico-muted-border-color: var(--arch-gray-400);
+
+  --pico-primary: var(--arch-primary);
+  --pico-primary-background: var(--arch-primary);
+  --pico-primary-border: var(--pico-primary-background);
+  --pico-primary-underline: color-mix(in srgb, var(--arch-primary) 50%, transparent);
+  --pico-primary-hover: var(--arch-on-surface);
+  --pico-primary-hover-background: color-mix(in srgb, var(--arch-primary) 88%, var(--arch-on-surface));
+  --pico-primary-hover-border: var(--pico-primary-hover-background);
+  --pico-primary-hover-underline: var(--pico-primary-hover);
+  --pico-primary-focus: color-mix(in srgb, var(--arch-primary) 40%, transparent);
+  --pico-primary-inverse: var(--arch-on-primary);
+
+  /* Secondary omitted as a fill hue. Pico .secondary / .outline = ghost on surface. */
+  --pico-secondary: var(--arch-on-surface);
+  --pico-secondary-background: transparent;
+  --pico-secondary-border: var(--arch-outline);
+  --pico-secondary-underline: color-mix(in srgb, var(--arch-on-surface) 50%, transparent);
+  --pico-secondary-hover: var(--arch-on-surface);
+  --pico-secondary-hover-background: var(--arch-gray-100);
+  --pico-secondary-hover-border: var(--arch-outline);
+  --pico-secondary-hover-underline: var(--pico-secondary-hover);
+  --pico-secondary-focus: color-mix(in srgb, var(--arch-on-surface) 25%, transparent);
+  --pico-secondary-inverse: var(--arch-on-surface);
+
+  --pico-contrast: var(--arch-on-surface);
+  --pico-contrast-background: var(--arch-on-surface);
+  --pico-contrast-border: var(--arch-on-surface);
+  --pico-contrast-underline: color-mix(in srgb, var(--arch-on-surface) 50%, transparent);
+  --pico-contrast-hover: #ffffff;
+  --pico-contrast-hover-background: #ffffff;
+  --pico-contrast-hover-border: #ffffff;
+  --pico-contrast-hover-underline: var(--pico-contrast-hover);
+  --pico-contrast-focus: color-mix(in srgb, var(--arch-on-surface) 25%, transparent);
+  --pico-contrast-inverse: var(--arch-surface);
+
+  --pico-box-shadow: none;
+  --pico-h1-color: var(--arch-on-surface);
+  --pico-h2-color: var(--arch-on-surface);
+  --pico-h3-color: var(--arch-on-surface);
+  --pico-h4-color: var(--arch-on-surface);
+  --pico-h5-color: var(--arch-on-surface);
+  --pico-h6-color: var(--arch-tertiary);
+  --pico-mark-background-color: var(--arch-tertiary);
+  --pico-mark-color: var(--arch-on-tertiary);
+  --pico-ins-color: var(--arch-on-surface);
+  --pico-del-color: var(--arch-error);
+  --pico-blockquote-border-color: var(--arch-outline);
+  --pico-blockquote-footer-color: var(--arch-tertiary);
+  --pico-button-box-shadow: none;
+  --pico-button-hover-box-shadow: none;
+  --pico-table-border-color: var(--arch-gray-400);
+  --pico-table-row-stripped-background-color: var(--arch-background-100);
+  --pico-code-background-color: var(--arch-surface);
+  --pico-code-color: var(--arch-on-surface);
+  --pico-code-kbd-background-color: var(--arch-on-surface);
+  --pico-code-kbd-color: var(--arch-surface);
+  --pico-form-element-background-color: var(--arch-surface);
+  --pico-form-element-selected-background-color: var(--arch-gray-200);
+  --pico-form-element-border-color: var(--arch-gray-400);
+  --pico-form-element-color: var(--arch-on-surface);
+  --pico-form-element-placeholder-color: var(--arch-tertiary);
+  --pico-form-element-active-background-color: var(--arch-surface);
+  --pico-form-element-active-border-color: var(--arch-outline);
+  --pico-form-element-focus-color: var(--arch-outline);
+  --pico-form-element-disabled-opacity: 0.5;
+  --pico-form-element-invalid-border-color: var(--arch-error);
+  --pico-form-element-invalid-active-border-color: var(--arch-error);
+  --pico-form-element-invalid-focus-color: var(--arch-error);
+  --pico-form-element-valid-border-color: var(--arch-gray-600);
+  --pico-form-element-valid-active-border-color: var(--arch-gray-600);
+  --pico-form-element-valid-focus-color: var(--arch-gray-600);
+  --pico-switch-background-color: var(--arch-gray-400);
+  --pico-switch-checked-background-color: var(--pico-primary-background);
+  --pico-switch-color: var(--arch-on-primary);
+  --pico-switch-thumb-box-shadow: none;
+  --pico-range-border-color: var(--arch-gray-400);
+  --pico-range-active-border-color: var(--arch-gray-500);
+  --pico-range-thumb-border-color: var(--arch-surface);
+  --pico-range-thumb-color: var(--arch-gray-600);
+  --pico-range-thumb-active-color: var(--pico-primary-background);
+  --pico-accordion-border-color: var(--arch-gray-400);
+  --pico-accordion-active-summary-color: var(--arch-on-surface);
+  --pico-accordion-close-summary-color: var(--arch-on-surface);
+  --pico-accordion-open-summary-color: var(--arch-tertiary);
+  --pico-card-background-color: var(--arch-surface);
+  --pico-card-border-color: var(--arch-gray-400);
+  --pico-card-box-shadow: none;
+  --pico-card-sectioning-background-color: var(--arch-background-100);
+  --pico-dropdown-background-color: var(--arch-surface);
+  --pico-dropdown-border-color: var(--arch-gray-400);
+  --pico-dropdown-box-shadow: none;
+  --pico-dropdown-color: var(--arch-on-surface);
+  --pico-dropdown-hover-background-color: var(--arch-gray-100);
+  --pico-loading-spinner-opacity: 0.5;
+  --pico-modal-overlay-background-color: color-mix(in srgb, var(--arch-surface) 80%, transparent);
+  --pico-progress-background-color: var(--arch-gray-400);
+  --pico-progress-color: var(--pico-primary-background);
+  --pico-tooltip-background-color: var(--arch-on-surface);
+  --pico-tooltip-color: var(--arch-surface);
+  --pico-icon-valid: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23a1a1a1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+  --pico-icon-invalid: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23454545' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'%3E%3C/circle%3E%3Cline x1='12' y1='8' x2='12' y2='12'%3E%3C/line%3E%3Cline x1='12' y1='16' x2='12.01' y2='16'%3E%3C/line%3E%3C/svg%3E");
+}
+
+html,
+body {
+  background-color: var(--arch-surface);
+  color: var(--arch-on-surface);
+}
+
+article,
+dialog,
+[role="dialog"] {
+  box-shadow: none;
+}
+
+/* Rainbow-glass analogue. Opt-in. Edge only. Fill stays the element's own. */
+.border-beam,
+[data-border-beam] {
+  position: relative;
+  isolation: isolate;
+}
+
+.border-beam::after,
+[data-border-beam]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  padding: var(--beam-size);
+  pointer-events: none;
+  box-sizing: border-box;
+  background: conic-gradient(
+    from var(--beam-angle),
+    rgb(255, 50, 100),
+    rgb(255, 170, 40),
+    rgb(50, 200, 100),
+    rgb(40, 140, 255),
+    rgb(200, 50, 240),
+    rgb(255, 50, 100)
+  );
+  filter: saturate(var(--beam-saturation)) brightness(1.08);
+  opacity: var(--beam-strength);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: arch-beam-spin var(--beam-duration) linear infinite;
+}
+
+.border-beam-sm { --beam-size: 1px; --beam-duration: 3.2s; }
+.border-beam-md { --beam-size: 2px; --beam-duration: 2s; }
+.border-beam-quiet { --beam-strength: 0.35; --beam-saturation: 0.55; }
+.border-beam-present { --beam-strength: 0.55; --beam-saturation: 0.75; }
+.border-beam-loud { --beam-strength: 1; --beam-saturation: 1.2; }
+
+.border-beam-line::after,
+[data-border-beam="line"]::after {
+  inset: auto 0 0 0;
+  height: max(2px, var(--beam-size));
+  padding: 0;
+  border-radius: 0;
+  -webkit-mask: none;
+  mask: none;
+  background: linear-gradient(
+    90deg,
+    rgb(255, 50, 100),
+    rgb(255, 170, 40),
+    rgb(50, 200, 100),
+    rgb(40, 140, 255),
+    rgb(200, 50, 240),
+    rgb(255, 50, 100)
+  );
+  background-size: 200% 100%;
+  animation: arch-beam-line var(--beam-duration) linear infinite;
+}
+
+.border-beam-pulse::after,
+[data-border-beam="pulse-inner"]::after {
+  animation:
+    arch-beam-spin calc(var(--beam-duration) * 2.4) linear infinite,
+    arch-beam-breathe 2.3s ease-in-out infinite;
+}
+
+@keyframes arch-beam-spin {
+  to { --beam-angle: 360deg; }
+}
+
+@keyframes arch-beam-line {
+  to { background-position: 200% 0; }
+}
+
+@keyframes arch-beam-breathe {
+  50% { opacity: calc(var(--beam-strength) * 0.45); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .border-beam::after,
+  [data-border-beam]::after,
+  .border-beam-line::after,
+  .border-beam-pulse::after {
+    animation: none;
+    --beam-angle: 40deg;
+    opacity: calc(var(--beam-strength) * 0.7);
+  }
+}

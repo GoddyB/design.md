@@ -34,7 +34,7 @@ Accent scales (`blue`, `red`, `amber`, `green`, `teal`, `purple`, `pink`): **do 
 
 **Canvas:** `{colors.surface}` = `{colors.background-200}` = `#000000`. Default elements use the same. `{colors.background-100}` (`#0a0a0a`) only when an alternate is specified, rarely. `#ededed` on `#0a0a0a` is **not** a preset.
 
-**Archanglic delta (not Geist):** muted pastel-rainbow-glass on accents, shimmers, active shading, and some chrome borders. Does not replace the gray-400/500/600 border ladder; it is the splash.
+**Archanglic delta (not Geist):** muted pastel-rainbow-glass on accents, shimmers, active shading, and some chrome borders. Does not replace the gray-400/500/600 border ladder; it is the splash. Vanilla CSS `.border-beam` in `archanglic.pico.css` — not the React package.
 
 ### Typography (`typography`)
 
@@ -89,6 +89,8 @@ Still need one **domain** component (quality-bar) that is Archanglic, not Geist 
 - Material shadow presets (`material-small` lift, etc.)
 - Implementation (GridSystem React API)
 
+**Implementation that does belong:** Pico CSS theme (`archanglic.pico.css`). Map: `.working/pico-theme-map.md`.
+
 ## Open collision
 
-Geist dark Background 1 is `#0a0a0a`, Background 2 is `#000000`. Archanglic “pure black everything” vs Geist’s 4% default element fill. Confirm whether `background-100` stays `#0a0a0a` or is flattened to `#000000`.
+Resolved 2026-09-05: `{colors.background-100}` stays `#0a0a0a` as a **rare alternate** only. Default canvas and default element fill are `#000000`. Do not flatten `background-100` away.
