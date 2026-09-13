@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="/ux-palette/" />
+<title>Archanglic palette review</title>
+<link rel="stylesheet" href="./archanglic/tokens.css">
+<link rel="stylesheet" href="./archanglic/fonts.css">
+<link rel="stylesheet" href="./archanglic/dash.css">
+<link rel="stylesheet" href="./archanglic/code.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: var(--arch-surface);
+    color: var(--arch-on-surface);
+    font-size: 14px;
+    line-height: 1.4;
+    padding: 20px 16px 88px;
+  }
+  h1, h2, h3, p { margin: 0; }
+  h1 { font-size: 16px; font-weight: 600; }
+  h2 {
+    font-size: 13px;
+    font-weight: 600;
+    color: #a1a1a1;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin: 32px 0 12px;
+  }
+  .lede {
+    color: #a1a1a1;
+    margin: 4px 0 0;
+    max-width: 42em;
+  }
+  .swatches {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+  }
+  .item { display: flex; flex-direction: column; gap: 8px; }
+  .chip {
+    height: 72px;
+    border: 1px solid #2e2e2e;
+  }
+  .item-name { font-size: 13px; }
+  .item-name code { display: block; margin-top: 2px; }
+  textarea {
+    width: 100%;
+    min-height: 4.5em;
+    margin: 0;
+    padding: 8px;
+    background: #000000;
+    color: #ededed;
+    border: 1px solid #2e2e2e;
+    font-family: inherit;
+    font-size: 13px;
+    line-height: 1.4;
+    resize: vertical;
+  }
+  textarea:focus, button:focus-visible, input:focus-visible {
+    outline: 1px solid #a1a1a1;
+    outline-offset: 1px;
+  }
+  .mocks, .types {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 720px) {
+    .mocks, .types { grid-template-columns: 1fr; }
+  }
+  .mock-label, .type-label {
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+  .site {
+    background: #000000;
+    color: #ededed;
+    border: 1px solid #2e2e2e;
+    margin-bottom: 8px;
+  }
+  .site-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px;
+    border-bottom: 1px solid #2e2e2e;
+  }
+  .mark { font-weight: 600; letter-spacing: 0.08em; }
+  .site-nav-links { display: flex; gap: 16px; }
+  .site-nav-links a { color: #a1a1a1; text-decoration: none; pointer-events: none; }
+  .site-body { padding: 20px 12px 16px; }
+  .site-body h3 {
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    margin-bottom: 8px;
+  }
+  .site-body > p { margin-bottom: 16px; }
+  .panel {
+    border: 1px solid #2e2e2e;
+    padding: 12px;
+    margin-bottom: 16px;
+  }
+  .panel p + p { margin-top: 8px; }
+  .muted { color: #a1a1a1; font-size: 12px; }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn {
+    appearance: none;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 6px 12px;
+    cursor: default;
+  }
+  .btn-fill {
+    background: #ededed;
+    color: #000000;
+    border: 1px solid #ededed;
+  }
+  .btn-ghost {
+    background: transparent;
+    color: #ededed;
+    border: 1px solid #2e2e2e;
+  }
+  .field {
+    flex: 1 1 120px;
+    min-width: 0;
+    background: transparent;
+    color: #ededed;
+    border: 1px solid #2e2e2e;
+    padding: 6px 8px;
+    font-family: inherit;
+    font-size: 13px;
+  }
+  .field::placeholder { color: #a1a1a1; }
+  .mock-flatten .site-nav,
+  .mock-flatten .panel,
+  .mock-flatten .field {
+    background: #000000;
+  }
+  .mock-geist .site-nav,
+  .mock-geist .panel,
+  .mock-geist .field {
+    background: #0a0a0a;
+  }
+  .type-card {
+    border: 1px solid #2e2e2e;
+    padding: 16px 12px;
+    margin-bottom: 8px;
+  }
+  .type-card p + p { margin-top: 8px; }
+  .bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 16px;
+    padding: 12px 16px;
+    background: #000000;
+    border-top: 1px solid #2e2e2e;
+  }
+  .bar-title { font-size: 16px; font-weight: 600; }
+  .bar-hint { color: #a1a1a1; font-size: 13px; flex: 1 1 180px; }
+  #copy-json {
+    appearance: none;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 6px 12px;
+    background: #000000;
+    color: #ededed;
+    border: 1px solid #2e2e2e;
+    cursor: pointer;
+  }
+  #copy-fallback {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>Archanglic palette review</h1>
+  <p class="lede">Dark-only fill check. Page canvas is locked <code>#000000</code>. Open question: element fill <code>#0a0a0a</code> or flatten to <code>#000000</code>.</p>
+
+  <h2>A — Swatches</h2>
+  <div class="swatches">
+    <article class="item" data-item-id="background-200" data-label="background-200 #000000">
+      <div class="chip" style="background:#000000"></div>
+      <p class="item-name">background-200<code>#000000</code></p>
+      <textarea rows="3" placeholder="notes" aria-label="background-200 #000000"></textarea>
+    </article>
+    <article class="item" data-item-id="background-100" data-label="background-100 #0a0a0a">
+      <div class="chip" style="background:#0a0a0a"></div>
+      <p class="item-name">background-100<code>#0a0a0a</code></p>
+      <textarea rows="3" placeholder="notes" aria-label="background-100 #0a0a0a"></textarea>
+    </article>
+    <article class="item" data-item-id="gray-100" data-label="gray-100 #1a1a1a">
+      <div class="chip" style="background:#1a1a1a"></div>
+      <p class="item-name">gray-100<code>#1a1a1a</code></p>
+      <textarea rows="3" placeholder="notes" aria-label="gray-100 #1a1a1a"></textarea>
+    </article>
+    <article class="item" data-item-id="gray-200" data-label="gray-200 #1f1f1f">
+      <div class="chip" style="background:#1f1f1f"></div>
+      <p class="item-name">gray-200<code>#1f1f1f</code></p>
+      <textarea rows="3" placeholder="notes" aria-label="gray-200 #1f1f1f"></textarea>
+    </article>
+    <article class="item" data-item-id="gray-300" data-label="gray-300 #292929">
+      <div class="chip" style="background:#292929"></div>
+      <p class="item-name">gray-300<code>#292929</code></p>
+      <textarea rows="3" placeholder="notes" aria-label="gray-300 #292929"></textarea>
+    </article>
+    <article class="item" data-item-id="gray-400" data-label="gray-400 #2e2e2e">
+      <div class="chip" style="background:#2e2e2e"></div>
+      <p class="item-name">gray-400<code>#2e2e2e</code></p>
+      <textarea rows="3" placeholder="notes" aria-label="gray-400 #2e2e2e"></textarea>
+    </article>
+    <article class="item" data-item-id="gray-500" data-label="gray-500 #454545">
+      <div class="chip" style="background:#454545"></div>
+      <p class="item-name">gray-500<code>#454545</code></p>
+      <textarea rows="3" placeholder="notes" aria-label="gray-500 #454545"></textarea>
+    </article>
+    <article class="item" data-item-id="gray-600" data-label="gray-600 #878787">
+      <div class="chip" style="background:#878787"></div>
+      <p class="item-name">gray-600<code>#878787</code></p>
+      <textarea rows="3" placeholder="notes" aria-label="gray-600 #878787"></textarea>
+    </article>
+    <article class="item" data-item-id="gray-700" data-label="gray-700 #8f8f8f">
+      <div class="chip" style="background:#8f8f8f"></div>
+      <p class="item-name">gray-700<code>#8f8f8f</code></p>
+      <textarea rows="3" placeholder="notes" aria-label="gray-700 #8f8f8f"></textarea>
+    </article>
+    <article class="item" data-item-id="gray-800" data-label="gray-800 #7d7d7d">
+      <div class="chip" style="background:#7d7d7d"></div>
+      <p class="item-name">gray-800<code>#7d7d7d</code></p>
+      <textarea rows="3" placeholder="notes" aria-label="gray-800 #7d7d7d"></textarea>
+    </article>
+    <article class="item" data-item-id="gray-900" data-label="gray-900 #a1a1a1">
+      <div class="chip" style="background:#a1a1a1"></div>
+      <p class="item-name">gray-900<code>#a1a1a1</code></p>
+      <textarea rows="3" placeholder="notes" aria-label="gray-900 #a1a1a1"></textarea>
+    </article>
+    <article class="item" data-item-id="gray-1000" data-label="gray-1000 #ededed">
+      <div class="chip" style="background:#ededed"></div>
+      <p class="item-name">gray-1000<code>#ededed</code></p>
+      <textarea rows="3" placeholder="notes" aria-label="gray-1000 #ededed"></textarea>
+    </article>
+  </div>
+
+  <h2>B — Element fill</h2>
+  <div class="mocks">
+    <article class="item mock-flatten" data-item-id="mock-flatten-000" data-label="Flatten: elements #000000">
+      <p class="mock-label">Flatten: elements <code>#000000</code></p>
+      <div class="site">
+        <div class="site-nav">
+          <span class="mark">^^</span>
+          <div class="site-nav-links"><a href="#">About</a><a href="#">Work</a></div>
+        </div>
+        <div class="site-body">
+          <h3>Archanglic</h3>
+          <p>Dark only. The page canvas is black.</p>
+          <div class="panel">
+            <p>Two lines of body in the content panel.</p>
+            <p>Element fill matches the page canvas.</p>
+            <p class="muted">panel</p>
+          </div>
+          <div class="actions">
+            <button type="button" class="btn btn-fill">Deploy</button>
+            <button type="button" class="btn btn-ghost">Read</button>
+            <input class="field" type="text" placeholder="token name" aria-label="token name">
+          </div>
+        </div>
+      </div>
+      <textarea rows="3" placeholder="notes" aria-label="Flatten: elements #000000"></textarea>
+    </article>
+    <article class="item mock-geist" data-item-id="mock-geist-0a0a0a" data-label="Geist: elements #0a0a0a">
+      <p class="mock-label">Geist: elements <code>#0a0a0a</code></p>
+      <div class="site">
+        <div class="site-nav">
+          <span class="mark">^^</span>
+          <div class="site-nav-links"><a href="#">About</a><a href="#">Work</a></div>
+        </div>
+        <div class="site-body">
+          <h3>Archanglic</h3>
+          <p>Dark only. The page canvas is black.</p>
+          <div class="panel">
+            <p>Two lines of body in the content panel.</p>
+            <p>Element fill sits one step off black.</p>
+            <p class="muted">panel</p>
+          </div>
+          <div class="actions">
+            <button type="button" class="btn btn-fill">Deploy</button>
+            <button type="button" class="btn btn-ghost">Read</button>
+            <input class="field" type="text" placeholder="token name" aria-label="token name">
+          </div>
+        </div>
+      </div>
+      <textarea rows="3" placeholder="notes" aria-label="Geist: elements #0a0a0a"></textarea>
+    </article>
+  </div>
+
+  <h2>C — Type on fill</h2>
+  <div class="types">
+    <article class="item" data-item-id="type-on-000" data-label="type-on-000 #ededed / #a1a1a1 on #000000">
+      <p class="type-label">type-on-000 — text on <code>#000000</code></p>
+      <div class="type-card" style="background:#000000">
+        <p style="color:#ededed">#ededed on #000000</p>
+        <p style="color:#a1a1a1">#a1a1a1 on #000000</p>
+      </div>
+      <textarea rows="3" placeholder="notes" aria-label="type-on-000 #ededed / #a1a1a1 on #000000"></textarea>
+    </article>
+    <article class="item" data-item-id="type-on-0a0a0a" data-label="type-on-0a0a0a #ededed / #a1a1a1 on #0a0a0a">
+      <p class="type-label">type-on-0a0a0a — text on <code>#0a0a0a</code></p>
+      <div class="type-card" style="background:#0a0a0a">
+        <p style="color:#ededed">#ededed on #0a0a0a</p>
+        <p style="color:#a1a1a1">#a1a1a1 on #0a0a0a</p>
+      </div>
+      <textarea rows="3" placeholder="notes" aria-label="type-on-0a0a0a #ededed / #a1a1a1 on #0a0a0a"></textarea>
+    </article>
+  </div>
+</main>
+
+<footer class="bar">
+  <p class="bar-title">Archanglic palette review</p>
+  <p class="bar-hint">Notes per item. Copy JSON and paste in chat.</p>
+  <button type="button" id="copy-json">Copy JSON</button>
+</footer>
+<textarea id="copy-fallback" aria-hidden="true" tabindex="-1"></textarea>
+
+<script>
+(function () {
+  var copyBtn = document.getElementById("copy-json");
+  var fallback = document.getElementById("copy-fallback");
+  var copiedTimer = null;
+
+  function payload() {
+    var nodes = document.querySelectorAll("[data-item-id]");
+    var items = [];
+    for (var i = 0; i < nodes.length; i++) {
+      var node = nodes[i];
+      var ta = node.querySelector("textarea");
+      items.push({
+        id: node.getAttribute("data-item-id"),
+        label: node.getAttribute("data-label"),
+        notes: ta ? ta.value : ""
+      });
+    }
+    return JSON.stringify({ review: "archanglic-palette-fills", items: items }, null, 2);
+  }
+
+  function fallbackCopy(text) {
+    fallback.value = text;
+    fallback.removeAttribute("aria-hidden");
+    fallback.style.opacity = "1";
+    fallback.style.width = "8px";
+    fallback.style.height = "8px";
+    fallback.focus();
+    fallback.select();
+    var ok = false;
+    try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
+    fallback.setAttribute("aria-hidden", "true");
+    fallback.style.opacity = "0";
+    fallback.style.width = "1px";
+    fallback.style.height = "1px";
+    fallback.value = "";
+    return ok;
+  }
+
+  function markCopied() {
+    copyBtn.textContent = "Copied";
+    if (copiedTimer) clearTimeout(copiedTimer);
+    copiedTimer = setTimeout(function () {
+      copyBtn.textContent = "Copy JSON";
+      copiedTimer = null;
+    }, 1600);
+  }
+
+  copyBtn.addEventListener("click", function () {
+    var text = payload();
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(markCopied).catch(function () {
+        if (fallbackCopy(text)) markCopied();
+      });
+      return;
+    }
+    if (fallbackCopy(text)) markCopied();
+  });
+})();
+</script>
+<script src="./archanglic/vendor/highlight.min.js"></script>
+<script src="./archanglic/code.js"></script>
+</body>
+</html>

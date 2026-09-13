@@ -1,0 +1,85 @@
+{
+  "review": "archanglic-palette-fills",
+  "items": [
+    {
+      "id": "background-200",
+      "label": "background-200 #000000",
+      "notes": "primary background. always used unless an alternate is specified, at which point background-100 is used."
+    },
+    {
+      "id": "background-100",
+      "label": "background-100 #0a0a0a",
+      "notes": "should only be used rarely"
+    },
+    {
+      "id": "gray-100",
+      "label": "gray-100 #1a1a1a",
+      "notes": ""
+    },
+    {
+      "id": "gray-200",
+      "label": "gray-200 #1f1f1f",
+      "notes": ""
+    },
+    {
+      "id": "gray-300",
+      "label": "gray-300 #292929",
+      "notes": ""
+    },
+    {
+      "id": "gray-400",
+      "label": "gray-400 #2e2e2e",
+      "notes": ""
+    },
+    {
+      "id": "gray-500",
+      "label": "gray-500 #454545",
+      "notes": ""
+    },
+    {
+      "id": "gray-600",
+      "label": "gray-600 #878787",
+      "notes": ""
+    },
+    {
+      "id": "gray-700",
+      "label": "gray-700 #8f8f8f",
+      "notes": ""
+    },
+    {
+      "id": "gray-800",
+      "label": "gray-800 #7d7d7d",
+      "notes": ""
+    },
+    {
+      "id": "gray-900",
+      "label": "gray-900 #a1a1a1",
+      "notes": ""
+    },
+    {
+      "id": "gray-1000",
+      "label": "gray-1000 #ededed",
+      "notes": "not appropriate for a grey preset. this should instead be the white we use for text."
+    },
+    {
+      "id": "mock-flatten-000",
+      "label": "Flatten: elements #000000",
+      "notes": ""
+    },
+    {
+      "id": "mock-geist-0a0a0a",
+      "label": "Geist: elements #0a0a0a",
+      "notes": ""
+    },
+    {
+      "id": "type-on-000",
+      "label": "type-on-000 #ededed / #a1a1a1 on #000000",
+      "notes": "#ededed on #000000 is the default preset."
+    },
+    {
+      "id": "type-on-0a0a0a",
+      "label": "type-on-0a0a0a #ededed / #a1a1a1 on #0a0a0a",
+      "notes": "no"
+    }
+  ]
+}

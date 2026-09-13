@@ -1,0 +1,55 @@
+{
+  "review": "archanglic-husk-slots",
+  "items": [
+    {
+      "id": "primary",
+      "label": "primary — main action fill",
+      "notes": "Maybe I have bad eyes, all the colors look identical. You're telling me the word 'Archanglic' itself is in different colors for each of these? show me some swatches in a column of this div so i can better see."
+    },
+    {
+      "id": "on-primary",
+      "label": "on-primary — text on primary fill",
+      "notes": "please give more context. can't really tell the difference between each. clarify what i'm looking for."
+    },
+    {
+      "id": "error",
+      "label": "error — invalid / destructive",
+      "notes": "errors need red somewhere. "
+    },
+    {
+      "id": "on-error",
+      "label": "on-error — text on error fill",
+      "notes": "visually QA this garbage"
+    },
+    {
+      "id": "secondary",
+      "label": "secondary — second action fill",
+      "notes": "a"
+    },
+    {
+      "id": "on-secondary",
+      "label": "on-secondary — text on secondary",
+      "notes": "that button needs to have a light option of shade for the background. experiment with a thin border beam for these buttons."
+    },
+    {
+      "id": "tertiary",
+      "label": "tertiary — rare third accent fill",
+      "notes": "B is actually really good here. use that."
+    },
+    {
+      "id": "on-tertiary",
+      "label": "on-tertiary — text on tertiary",
+      "notes": "tertiary will need better distinction from secondary"
+    },
+    {
+      "id": "outline",
+      "label": "outline — default hairline",
+      "notes": "edges should be white or border beam"
+    },
+    {
+      "id": "outline-variant",
+      "label": "outline-variant — quieter divider",
+      "notes": "maybe white, maybe border beam"
+    }
+  ]
+}

@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="/ux-color-board/" />
+<title>Husk color decision board</title>
+<link rel="stylesheet" href="./archanglic/tokens.css">
+<link rel="stylesheet" href="./archanglic/fonts.css">
+<link rel="stylesheet" href="./archanglic/dash.css">
+<link rel="stylesheet" href="./archanglic/code.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: var(--arch-surface);
+    color: var(--arch-on-surface);
+    font-size: 14px;
+    line-height: 1.4;
+    padding: 20px 16px 88px;
+  }
+  h1, h2, h3, p { margin: 0; }
+  h1 { font-size: 16px; font-weight: 600; }
+  .lede {
+    color: var(--arch-gray-900);
+    margin: 4px 0 20px;
+    max-width: 46em;
+  }
+  .cards { display: flex; flex-direction: column; gap: 24px; }
+  .item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 1px solid #2e2e2e;
+    padding: 16px 12px 12px;
+  }
+  .item-title { font-size: 14px; font-weight: 600; }
+  .hint { color: #a1a1a1; font-size: 13px; }
+  .options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  @media (max-width: 860px) {
+    .options { grid-template-columns: 1fr; }
+  }
+  .option {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #2e2e2e;
+    background: #000000;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+  .option:hover, .option:focus-visible {
+    border-color: #454545;
+    outline: none;
+  }
+  .stage {
+    padding: 14px 12px;
+    background: #000000;
+    min-height: 132px;
+  }
+  .meta { padding: 0 10px 10px; }
+  .letter { font-weight: 600; margin-right: 6px; }
+  .meta p { display: inline; color: #a1a1a1; font-size: 13px; }
+
+  .site-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+    font-size: 12px;
+    color: #a1a1a1;
+  }
+  .mark { color: #ededed; font-weight: 600; letter-spacing: 0.08em; }
+  .site-h { font-size: 18px; font-weight: 600; letter-spacing: -0.03em; margin-bottom: 6px; }
+  .site-p { color: #a1a1a1; font-size: 13px; margin-bottom: 12px; }
+  .row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+
+  .btn {
+    appearance: none;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 6px 12px;
+    border: 1px solid #2e2e2e;
+    cursor: default;
+    pointer-events: none;
+  }
+  .btn-ghost { background: transparent; color: #ededed; }
+  .field {
+    width: 100%;
+    background: #000000;
+    color: #ededed;
+    border: 1px solid #2e2e2e;
+    padding: 6px 8px;
+    font-family: inherit;
+    font-size: 13px;
+    pointer-events: none;
+  }
+  .err {
+    font-size: 12px;
+    margin-top: 6px;
+  }
+  .panel {
+    border: 1px solid #2e2e2e;
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    padding: 3px 8px;
+    border: 1px solid #2e2e2e;
+  }
+  .kicker { color: #a1a1a1; font-size: 12px; margin-bottom: 8px; }
+  .stack { display: flex; flex-direction: column; gap: 10px; }
+  .rule { border: 0; height: 1px; margin: 10px 0; background: #2e2e2e; }
+  .omit {
+    color: #a1a1a1;
+    font-size: 13px;
+    min-height: 104px;
+    display: flex;
+    align-items: center;
+  }
+  .pair { display: flex; flex-wrap: wrap; gap: 8px; }
+
+  textarea {
+    width: 100%;
+    min-height: 4.5em;
+    margin: 0;
+    padding: 8px;
+    background: #000000;
+    color: #ededed;
+    border: 1px solid #2e2e2e;
+    font-family: inherit;
+    font-size: 13px;
+    line-height: 1.4;
+    resize: vertical;
+  }
+  .bar {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    z-index: 10;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 16px;
+    padding: 12px 16px;
+    background: #000000;
+    border-top: 1px solid #2e2e2e;
+  }
+  .bar-title { font-size: 16px; font-weight: 600; }
+  .bar-hint { color: #a1a1a1; font-size: 13px; flex: 1 1 180px; }
+  #copy-json {
+    appearance: none;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 6px 12px;
+    background: #000000;
+    color: #ededed;
+    border: 1px solid #2e2e2e;
+    cursor: pointer;
+  }
+  #copy-fallback {
+    position: fixed;
+    left: 0; top: 0;
+    width: 1px; height: 1px;
+    opacity: 0;
+    pointer-events: none;
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>Husk color decision board</h1>
+  <p class="lede">Each option is a real component. Click a card to put <strong>a</strong> / <strong>b</strong> / <strong>c</strong> in notes. Add prose after the letter if needed.</p>
+
+  <div class="cards">
+
+    <article class="item" data-item-id="primary" data-label="primary — main action fill">
+      <h2 class="item-title">primary — main action fill</h2>
+      <p class="hint">Paws / Totality — primary is only the main action on a screen, never wallpaper.</p>
+      <ul class="options">
+        <li>
+          <button type="button" class="option" data-letter="a">
+            <div class="stage">
+              <div class="site-nav"><span class="mark">^^</span><span>About · Work</span></div>
+              <h3 class="site-h">Archanglic</h3>
+              <p class="site-p">The one action on the screen.</p>
+              <div class="row">
+                <span class="btn" style="background:#ededed;color:#000;border-color:#ededed">Deploy</span>
+                <span class="btn btn-ghost">Read</span>
+              </div>
+            </div>
+            <div class="meta"><span class="letter">a)</span><p><code>#ededed</code> — same white as type; inverted pill</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="option" data-letter="b">
+            <div class="stage">
+              <div class="site-nav"><span class="mark">^^</span><span>About · Work</span></div>
+              <h3 class="site-h">Archanglic</h3>
+              <p class="site-p">The one action on the screen.</p>
+              <div class="row">
+                <span class="btn" style="background:#ffffff;color:#000;border-color:#ffffff">Deploy</span>
+                <span class="btn btn-ghost">Read</span>
+              </div>
+            </div>
+            <div class="meta"><span class="letter">b)</span><p><code>#ffffff</code> — hotter white CTA; body stays <code>#ededed</code></p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="option" data-letter="c">
+            <div class="stage">
+              <div class="site-nav"><span class="mark">^^</span><span>About · Work</span></div>
+              <h3 class="site-h">Archanglic</h3>
+              <p class="site-p">The one action on the screen.</p>
+              <div class="row">
+                <span class="btn" style="background:#ededed;color:#000;border-color:#ededed">Deploy</span>
+                <span class="btn btn-ghost">Read</span>
+              </div>
+            </div>
+            <div class="meta"><span class="letter">c)</span><p>alias <code>{colors.on-surface}</code> — same as (a), named as a pointer</p></div>
+          </button>
+        </li>
+      </ul>
+      <textarea rows="3" placeholder="a / b / c, plus prose if needed" aria-label="primary — main action fill"></textarea>
+    </article>
+
+    <article class="item" data-item-id="on-primary" data-label="on-primary — text on primary fill">
+      <h2 class="item-title">on-primary — text on primary fill</h2>
+      <p class="hint">quality-bar — every fill hue gets a contrasting on-color. Shown on <code>#ededed</code> as a stand-in fill.</p>
+      <ul class="options">
+        <li>
+          <button type="button" class="option" data-letter="a">
+            <div class="stage">
+              <div class="row">
+                <span class="btn" style="background:#ededed;color:#000000;border-color:#ededed">Deploy</span>
+              </div>
+            </div>
+            <div class="meta"><span class="letter">a)</span><p><code>#000000</code> — true black on a light pill</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="option" data-letter="b">
+            <div class="stage">
+              <div class="row">
+                <span class="btn" style="background:#ededed;color:#1a1a1a;border-color:#ededed">Deploy</span>
+              </div>
+            </div>
+            <div class="meta"><span class="letter">b)</span><p><code>#1a1a1a</code> — gray-100, slightly lifted</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="option" data-letter="c">
+            <div class="stage">
+              <div class="row">
+                <span class="btn" style="background:#ededed;color:#0a0a0a;border-color:#ededed">Deploy</span>
+              </div>
+            </div>
+            <div class="meta"><span class="letter">c)</span><p><code>#0a0a0a</code> — rare alternate black</p></div>
+          </button>
+        </li>
+      </ul>
+      <textarea rows="3" placeholder="a / b / c, plus prose if needed" aria-label="on-primary — text on primary fill"></textarea>
+    </article>
+
+    <article class="item" data-item-id="error" data-label="error — invalid / destructive">
+      <h2 class="item-title">error — invalid / destructive</h2>
+      <p class="hint">Paws — error is its own palette, never primary recycled as “angry.”</p>
+      <ul class="options">
+        <li>
+          <button type="button" class="option" data-letter="a">
+            <div class="stage">
+              <p class="kicker">token name</p>
+              <div class="field" style="border-color:#878787">colors.gray-1000</div>
+              <p class="err" style="color:#878787">This token does not resolve. You cannot ship it.</p>
+            </div>
+            <div class="meta"><span class="letter">a)</span><p><code>#878787</code> — gray-600; mute, no extra hue</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="option" data-letter="b">
+            <div class="stage">
+              <p class="kicker">token name</p>
+              <div class="field" style="border-color:#ededed">colors.gray-1000</div>
+              <p class="err" style="color:#ededed">This token does not resolve. You cannot ship it.</p>
+            </div>
+            <div class="meta"><span class="letter">b)</span><p><code>#ededed</code> — same as type; rustc is the copy</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="option" data-letter="c">
+            <div class="stage">
+              <p class="kicker">token name</p>
+              <div class="field" style="border-color:#454545">colors.gray-1000</div>
+              <p class="err" style="color:#454545">This token does not resolve. You cannot ship it.</p>
+            </div>
+            <div class="meta"><span class="letter">c)</span><p><code>#454545</code> — gray-500; quieter than (a)</p></div>
+          </button>
+        </li>
+      </ul>
+      <textarea rows="3" placeholder="a / b / c, plus prose if needed" aria-label="error — invalid / destructive"></textarea>
+    </article>
+
+    <article class="item" data-item-id="on-error" data-label="on-error — text on error fill">
+      <h2 class="item-title">on-error — text on error fill</h2>
+      <p class="hint">Same label on a light fill and a mute fill so you can pair with <code>error</code>.</p>
+      <ul class="options">
+        <li>
+          <button type="button" class="option" data-letter="a">
+            <div class="stage">
+              <div class="pair">
+                <span class="btn" style="background:#ededed;color:#000000;border-color:#ededed">Delete</span>
+                <span class="btn" style="background:#878787;color:#000000;border-color:#878787">Delete</span>
+              </div>
+            </div>
+            <div class="meta"><span class="letter">a)</span><p><code>#000000</code></p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="option" data-letter="b">
+            <div class="stage">
+              <div class="pair">
+                <span class="btn" style="background:#ededed;color:#ededed;border-color:#ededed">Delete</span>
+                <span class="btn" style="background:#878787;color:#ededed;border-color:#878787">Delete</span>
+              </div>
+            </div>
+            <div class="meta"><span class="letter">b)</span><p><code>#ededed</code></p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="option" data-letter="c">
+            <div class="stage">
+              <div class="pair">
+                <span class="btn" style="background:#ededed;color:#ededed;border-color:#ededed">Delete</span>
+                <span class="btn" style="background:#878787;color:#ededed;border-color:#878787">Delete</span>
+              </div>
+            </div>
+            <div class="meta"><span class="letter">c)</span><p>alias <code>{colors.on-surface}</code> (<code>#ededed</code>)</p></div>
+          </button>
+        </li>
+      </ul>
+      <textarea rows="3" placeholder="a / b / c, plus prose if needed" aria-label="on-error — text on error fill"></textarea>
+    </article>
+
+    <article class="item" data-item-id="secondary" data-label="secondary — second action fill">
+      <h2 class="item-title">secondary — second action fill</h2>
+      <p class="hint">Atmospheric Glass — second actions stay ghost; don’t invent a second brand hue.</p>
+      <ul class="options">
+        <li>
+          <button type="button" class="option" data-letter="a">
+            <div class="stage">
+              <div class="row">
+                <span class="btn" style="background:#ededed;color:#000;border-color:#ededed">Deploy</span>
+                <span class="btn btn-ghost">Read</span>
+              </div>
+            </div>
+            <div class="meta"><span class="letter">a)</span><p>omit — ghost on <code>surface</code></p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="option" data-letter="b">
+            <div class="stage">
+              <div class="row">
+                <span class="btn" style="background:#ededed;color:#000;border-color:#ededed">Deploy</span>
+                <span class="btn" style="background:#1a1a1a;color:#ededed;border-color:#1a1a1a">Read</span>
+              </div>
+            </div>
+            <div class="meta"><span class="letter">b)</span><p><code>#1a1a1a</code> — gray-100 chip</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="option" data-letter="c">
+            <div class="stage">
+              <div class="row">
+                <span class="btn" style="background:#ededed;color:#000;border-color:#ededed">Deploy</span>
+                <span class="btn" style="background:#2e2e2e;color:#ededed;border-color:#2e2e2e">Read</span>
+              </div>
+            </div>
+            <div class="meta"><span class="letter">c)</span><p><code>#2e2e2e</code> — gray-400 chip</p></div>
+          </button>
+        </li>
+      </ul>
+      <textarea rows="3" placeholder="a / b / c, plus prose if needed" aria-label="secondary — second action fill"></textarea>
+    </article>
+
+    <article class="item" data-item-id="on-secondary" data-label="on-secondary — text on secondary">
+      <h2 class="item-title">on-secondary — text on secondary</h2>
+      <p class="hint">Skip if you omitted <code>secondary</code>. (a) is the ghost. (b)/(c) sit on a <code>#1a1a1a</code> chip.</p>
+      <ul class="options">
+        <li>
+          <button type="button" class="option" data-letter="a">
+            <div class="stage">
+              <div class="row"><span class="btn btn-ghost">Read</span></div>
+            </div>
+            <div class="meta"><span class="letter">a)</span><p>omit — no second fill, ghost label</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="option" data-letter="b">
+            <div class="stage">
+              <div class="row"><span class="btn" style="background:#1a1a1a;color:#ededed;border-color:#1a1a1a">Read</span></div>
+            </div>
+            <div class="meta"><span class="letter">b)</span><p><code>#ededed</code></p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="option" data-letter="c">
+            <div class="stage">
+              <div class="row"><span class="btn" style="background:#1a1a1a;color:#a1a1a1;border-color:#1a1a1a">Read</span></div>
+            </div>
+            <div class="meta"><span class="letter">c)</span><p><code>#a1a1a1</code> — gray-900</p></div>
+          </button>
+        </li>
+      </ul>
+      <textarea rows="3" placeholder="a / b / c, plus prose if needed" aria-label="on-secondary — text on secondary"></textarea>
+    </article>
+
+    <article class="item" data-item-id="tertiary" data-label="tertiary — rare third accent fill">
+      <h2 class="item-title">tertiary — rare third accent fill</h2>
+      <p class="hint">quality-bar — do not keep unused rungs.</p>
+      <ul class="options">
+        <li>
+          <button type="button" class="option" data-letter="a">
+            <div class="stage">
+              <p class="kicker">section</p>
+              <h3 class="site-h">Whitepapers</h3>
+              <p class="omit">No badge. Slot omitted.</p>
+            </div>
+            <div class="meta"><span class="letter">a)</span><p>omit</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="option" data-letter="b">
+            <div class="stage">
+              <p class="kicker">section</p>
+              <h3 class="site-h">Whitepapers</h3>
+              <span class="badge" style="background:#a1a1a1;color:#000;border-color:#a1a1a1">BETA</span>
+            </div>
+            <div class="meta"><span class="letter">b)</span><p><code>#a1a1a1</code> — gray-900, rare emphasis</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="option" data-letter="c">
+            <div class="stage">
+              <p class="kicker">section</p>
+              <h3 class="site-h">Whitepapers</h3>
+              <p class="omit">No tertiary fill. Rainbow-glass stays an extra, not this slot.</p>
+            </div>
+            <div class="meta"><span class="letter">c)</span><p>omit here — rainbow-glass is the Archanglic extra</p></div>
+          </button>
+        </li>
+      </ul>
+      <textarea rows="3" placeholder="a / b / c, plus prose if needed" aria-label="tertiary — rare third accent fill"></textarea>
+    </article>
+
+    <article class="item" data-item-id="on-tertiary" data-label="on-tertiary — text on tertiary">
+      <h2 class="item-title">on-tertiary — text on tertiary</h2>
+      <p class="hint">Skip if you omitted <code>tertiary</code>. Badge fill stand-in is <code>#a1a1a1</code>.</p>
+      <ul class="options">
+        <li>
+          <button type="button" class="option" data-letter="a">
+            <div class="stage">
+              <p class="omit">No tertiary, so no on-tertiary.</p>
+            </div>
+            <div class="meta"><span class="letter">a)</span><p>omit</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="option" data-letter="b">
+            <div class="stage">
+              <span class="badge" style="background:#a1a1a1;color:#000000;border-color:#a1a1a1">BETA</span>
+            </div>
+            <div class="meta"><span class="letter">b)</span><p><code>#000000</code></p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="option" data-letter="c">
+            <div class="stage">
+              <span class="badge" style="background:#a1a1a1;color:#ededed;border-color:#a1a1a1">BETA</span>
+            </div>
+            <div class="meta"><span class="letter">c)</span><p><code>#ededed</code></p></div>
+          </button>
+        </li>
+      </ul>
+      <textarea rows="3" placeholder="a / b / c, plus prose if needed" aria-label="on-tertiary — text on tertiary"></textarea>
+    </article>
+
+    <article class="item" data-item-id="outline" data-label="outline — default hairline">
+      <h2 class="item-title">outline — default hairline</h2>
+      <p class="hint">Archanglic elevation is edges, not shadows; one hairline language.</p>
+      <ul class="options">
+        <li>
+          <button type="button" class="option" data-letter="a">
+            <div class="stage">
+              <div class="panel" style="border-color:#2e2e2e">Panel on black. Hairline is the edge.</div>
+            </div>
+            <div class="meta"><span class="letter">a)</span><p><code>#2e2e2e</code> — gray-400</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="option" data-letter="b">
+            <div class="stage">
+              <div class="panel" style="border-color:#454545">Panel on black. Hairline is the edge.</div>
+            </div>
+            <div class="meta"><span class="letter">b)</span><p><code>#454545</code> — gray-500</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="option" data-letter="c">
+            <div class="stage">
+              <div class="panel" style="border-color:#ffffff24">Panel on black. Hairline is the edge.</div>
+            </div>
+            <div class="meta"><span class="letter">c)</span><p><code>#ffffff24</code> — gray-alpha-400</p></div>
+          </button>
+        </li>
+      </ul>
+      <textarea rows="3" placeholder="a / b / c, plus prose if needed" aria-label="outline — default hairline"></textarea>
+    </article>
+
+    <article class="item" data-item-id="outline-variant" data-label="outline-variant — quieter divider">
+      <h2 class="item-title">outline-variant — quieter divider</h2>
+      <p class="hint">omit if one outline is enough.</p>
+      <ul class="options">
+        <li>
+          <button type="button" class="option" data-letter="a">
+            <div class="stage">
+              <p>Section</p>
+              <p class="site-p" style="margin:12px 0 0">Next section. No extra rule.</p>
+            </div>
+            <div class="meta"><span class="letter">a)</span><p>omit</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="option" data-letter="b">
+            <div class="stage">
+              <p>Section</p>
+              <hr class="rule" style="background:#292929">
+              <p>Next section</p>
+            </div>
+            <div class="meta"><span class="letter">b)</span><p><code>#292929</code> — gray-300</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="option" data-letter="c">
+            <div class="stage">
+              <p>Section</p>
+              <hr class="rule" style="background:#ffffff17">
+              <p>Next section</p>
+            </div>
+            <div class="meta"><span class="letter">c)</span><p><code>#ffffff17</code> — gray-alpha-200</p></div>
+          </button>
+        </li>
+      </ul>
+      <textarea rows="3" placeholder="a / b / c, plus prose if needed" aria-label="outline-variant — quieter divider"></textarea>
+    </article>
+
+  </div>
+</main>
+
+<footer class="bar">
+  <p class="bar-title">Husk color decision board</p>
+  <p class="bar-hint">Click an option or type the letter. Copy JSON and paste in chat.</p>
+  <button type="button" id="copy-json">Copy JSON</button>
+</footer>
+<textarea id="copy-fallback" aria-hidden="true" tabindex="-1"></textarea>
+
+<script>
+(function () {
+  var copyBtn = document.getElementById("copy-json");
+  var fallback = document.getElementById("copy-fallback");
+  var copiedTimer = null;
+
+  function payload() {
+    var nodes = document.querySelectorAll("[data-item-id]");
+    var items = [];
+    for (var i = 0; i < nodes.length; i++) {
+      var node = nodes[i];
+      var ta = node.querySelector("textarea");
+      items.push({
+        id: node.getAttribute("data-item-id"),
+        label: node.getAttribute("data-label"),
+        notes: ta ? ta.value : ""
+      });
+    }
+    return JSON.stringify({ review: "archanglic-husk-slots", items: items }, null, 2);
+  }
+
+  function fallbackCopy(text) {
+    fallback.value = text;
+    fallback.removeAttribute("aria-hidden");
+    fallback.style.opacity = "1";
+    fallback.style.width = "8px";
+    fallback.style.height = "8px";
+    fallback.focus();
+    fallback.select();
+    var ok = false;
+    try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
+    fallback.setAttribute("aria-hidden", "true");
+    fallback.style.opacity = "0";
+    fallback.style.width = "1px";
+    fallback.style.height = "1px";
+    fallback.value = "";
+    return ok;
+  }
+
+  function markCopied() {
+    copyBtn.textContent = "Copied";
+    if (copiedTimer) clearTimeout(copiedTimer);
+    copiedTimer = setTimeout(function () {
+      copyBtn.textContent = "Copy JSON";
+      copiedTimer = null;
+    }, 1600);
+  }
+
+  copyBtn.addEventListener("click", function () {
+    var text = payload();
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(markCopied).catch(function () {
+        if (fallbackCopy(text)) markCopied();
+      });
+      return;
+    }
+    if (fallbackCopy(text)) markCopied();
+  });
+
+  document.querySelectorAll(".option[data-letter]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var item = btn.closest("[data-item-id]");
+      var ta = item && item.querySelector("textarea");
+      if (!ta) return;
+      var letter = btn.getAttribute("data-letter");
+      var rest = ta.value.replace(/^\s*[abc]\s*[—–-]?\s*/i, "").replace(/^\s*[abc]\s*/i, "");
+      ta.value = rest ? (letter + " " + rest) : letter;
+      ta.dispatchEvent(new Event("input"));
+    });
+  });
+})();
+</script>
+<script src="./archanglic/vendor/highlight.min.js"></script>
+<script src="./archanglic/code.js"></script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+/* Archanglic visual contract. DESIGN.md points here. Pure CSS. No frameworks. */
+:root {
+  --void: #000000;
+  --voice: #ededed;
+  --muted: #a1a1a1;
+  --hairline: #2e2e2e;
+  --canopy: #7ee787;
+  --bough: #ff9e64;
+  --knicks-blue: #006bb6;
+  --pdf-adobe: #eb1000;
+  --jsx-react: #61dafb;
+  --ts-blue: #3178c6;
+  --js-sun: #f7df1e;
+  --html-ember: #e34f26;
+  --json-adobe: var(--pdf-adobe);
+  --py-forest: #228b22;
+  --rs-iron: #b7410e;
+  --arch-surface: var(--void);
+  --arch-on-surface: var(--voice);
+  --arch-background-200: var(--void);
+  --arch-background-100: #0a0a0a;
+  --arch-gray-100: #1a1a1a;
+  --arch-gray-200: #1f1f1f;
+  --arch-gray-300: #292929;
+  --arch-gray-400: var(--hairline);
+  --arch-gray-500: #454545;
+  --arch-gray-600: #878787;
+  --arch-gray-700: #8f8f8f;
+  --arch-gray-800: #7d7d7d;
+  --arch-gray-900: var(--muted);
+  --arch-tertiary: var(--muted);
+  --arch-font-sans: "Geist Sans", ui-sans-serif, system-ui, sans-serif;
+  --arch-font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --arch-radius-sm: 6px;
+  --arch-radius-md: 8px;
+  --arch-radius-lg: 12px;
+  --arch-radius-xl: 16px;
+}
+
+code, pre.snippet, pre.tree, .arch-code { font-family: var(--arch-font-mono) }
+:not(pre) > code, :not(pre) > .arch-code {
+  font-size: .92em;
+  padding: .12em .38em;
+  border: 1px solid var(--hairline);
+  border-radius: var(--arch-radius-sm);
+  background: transparent;
+  color: var(--voice);
+  white-space: nowrap;
+}
+pre.snippet, pre.tree {
+  margin: 8px 0 16px;
+  padding: 12px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--arch-radius-md);
+  overflow-x: auto;
+  font-size: 12px;
+  line-height: 1.45;
+  white-space: pre;
+  background: var(--void);
+  color: var(--voice);
+}
+pre.snippet code, pre.tree code {
+  display: block;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  color: inherit;
+  white-space: inherit;
+}
+
+.tree .canopy { color: var(--canopy) }
+.tree .bough { color: var(--bough) }
+.tree .twig { color: var(--knicks-blue) }
+.tree :is(.pdf-adobe,.json-adobe), .pdf-adobe, .json-adobe { color: var(--pdf-adobe) }
+.tree .jsx-react, .jsx-react { color: var(--jsx-react) }
+.tree .ts-blue, .ts-blue { color: var(--ts-blue) }
+.tree .js-sun, .js-sun { color: var(--js-sun) }
+.tree .html-ember, .html-ember { color: var(--html-ember) }
+.tree .py-forest, .py-forest { color: var(--py-forest) }
+.tree .rs-iron, .rs-iron { color: var(--rs-iron) }
+
+.hljs-name, .hljs-quote, .hljs-selector-tag, .hljs-selector-pseudo { color: var(--canopy) }

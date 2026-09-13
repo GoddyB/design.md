@@ -1,0 +1,29 @@
+/* Archanglic locked tokens. Dashes consume these; do not invent hues here. */
+:root {
+  --arch-surface: #000000;
+  --arch-on-surface: #ededed;
+  --arch-background-200: #000000;
+  --arch-background-100: #0a0a0a;
+  --arch-gray-100: #1a1a1a;
+  --arch-gray-200: #1f1f1f;
+  --arch-gray-300: #292929;
+  --arch-gray-400: #2e2e2e;
+  --arch-gray-500: #454545;
+  --arch-gray-600: #878787;
+  --arch-gray-700: #8f8f8f;
+  --arch-gray-800: #7d7d7d;
+  --arch-gray-900: #a1a1a1;
+  --arch-tertiary: #a1a1a1;
+  --arch-font-sans: "Geist Sans", ui-sans-serif, system-ui, sans-serif;
+  --arch-font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --arch-radius-sm: 6px;
+  --arch-radius-md: 8px;
+  --arch-radius-lg: 12px;
+  --arch-radius-xl: 16px;
+  --arch-space-4: 4px;
+  --arch-space-8: 8px;
+  --arch-space-12: 12px;
+  --arch-space-16: 16px;
+  --arch-space-24: 24px;
+  --arch-space-32: 32px;
+}

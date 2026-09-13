@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="/ux-beam/" />
+<title>Archanglic — border-beam + decisions</title>
+<link rel="stylesheet" href="./archanglic/fonts.css">
+<link rel="stylesheet" href="./archanglic/dash.css">
+<link rel="stylesheet" href="./archanglic/themes/default.css">
+<link rel="stylesheet" href="./archanglic/archanglic.css">
+<style>
+  body { padding: 20px 16px 96px; }
+  h1, h2, h3, p { margin: 0; }
+  h1 { font-size: 16px; }
+  h2 { font-size: 15px; margin: 28px 0 10px; }
+  h3 { font-size: 13px; font-weight: 600; color: var(--arch-gray-900); letter-spacing: .04em; text-transform: uppercase; margin: 22px 0 8px; }
+  .lede, .hint { color: var(--arch-gray-900); max-width: 52em; }
+  .hint { font-size: 13px; margin: 0 0 8px; }
+  .top { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: baseline; margin-bottom: 8px; }
+  .top nav { display: flex; gap: 16px; color: var(--arch-gray-900); }
+  .part { max-width: 1100px; }
+  #part-2.part { max-width: 1180px; }
+  .play { display: grid; grid-template-columns: 1fr 280px; gap: 16px; align-items: start; margin: 12px 0 24px; }
+  @media (max-width: 860px) { .play { grid-template-columns: 1fr; } }
+  .play-stage { min-height: 220px; display: grid; place-items: center; border: 1px solid var(--arch-gray-400); padding: 32px; }
+  .play-card { background: var(--arch-surface); padding: 20px 18px; width: 280px; }
+  .play-mark { letter-spacing: .08em; font-weight: 600; margin-bottom: 8px; }
+  .play-title { font-size: 20px; font-weight: 600; letter-spacing: -.03em; }
+  .play-sub { color: var(--arch-gray-900); font-size: 13px; margin-top: 6px; }
+  .play .snippet { grid-column: 1 / -1; }
+  .knobs { display: flex; flex-direction: column; gap: 10px; }
+  .knobs label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--arch-gray-900); }
+  .knobs select, .knobs input[type=range] { width: 100%; }
+  .knobs select {
+    background: var(--arch-surface); color: var(--arch-on-surface); border: 1px solid var(--arch-gray-400); padding: 6px;
+  }
+  .knobs .check { flex-direction: row; align-items: center; gap: 8px; color: var(--arch-on-surface); }
+  .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; margin: 8px 0 20px; }
+  .gallery-cell { min-height: 120px; }
+  .gallery-card { background: var(--arch-surface); padding: 16px 12px; min-height: 96px; border: 1px solid var(--arch-gray-400); }
+  .locked {
+    border: 1px solid var(--arch-gray-400); padding: 12px; margin: 8px 0 20px; color: var(--arch-gray-900); max-width: 52em;
+  }
+  .item { border: 1px solid var(--arch-gray-400); padding: 16px 12px 12px; margin: 0 0 20px; display: flex; flex-direction: column; gap: 10px; }
+  #part-2 .item {
+    border: 0;
+    padding: 0;
+    margin: 0 0 40px;
+    gap: 8px;
+  }
+  .item-title { font-size: 14px; font-weight: 600; }
+  .options { display: grid; gap: 10px; margin: 0; }
+  .col3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .option {
+    display: flex; flex-direction: column; gap: 8px; margin: 0; padding: 0 0 10px;
+    width: 100%; min-width: 0;
+    border: 1px solid var(--arch-gray-400); background: var(--arch-surface); color: inherit; font: inherit; text-align: left; cursor: pointer;
+  }
+  @media (max-width: 860px) {
+    .col3 { grid-template-columns: 1fr; }
+    #part-2 .col3 {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      gap: 10px;
+      padding-bottom: 8px;
+      grid-template-columns: none;
+    }
+    #part-2 .col3 .option {
+      flex: 0 0 min(280px, 78vw);
+      width: min(280px, 78vw);
+    }
+  }
+  .option:hover, .option:focus-visible { border-color: var(--arch-gray-500); outline: none; }
+  .swatch-col { height: 72px; width: 100%; border-bottom: 1px solid var(--arch-gray-400); }
+  .mini { padding: 12px; }
+  .mini-h { font-size: 18px; font-weight: 600; letter-spacing: -.03em; color: var(--arch-on-surface); margin-bottom: 10px; }
+  .mini.row, .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .meta { padding: 0 10px; font-size: 13px; color: var(--arch-gray-900); }
+  .btn {
+    appearance: none; font: 500 13px/1 var(--arch-font-sans);
+    padding: 6px 12px; border: 1px solid var(--arch-gray-400); display: inline-block;
+  }
+  .btn.fill { background: var(--arch-on-surface); color: var(--arch-surface); border-color: var(--arch-on-surface); }
+  .field { border: 1px solid var(--arch-gray-400); padding: 6px 8px; font-size: 13px; }
+  .err { font-size: 12px; margin-top: 6px; }
+  .badge { display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: .08em; padding: 3px 8px; }
+  .panel { border: 1px solid var(--arch-gray-400); padding: 12px; margin: 10px; }
+  .pair { display: flex; flex-wrap: wrap; gap: 8px; padding: 12px; }
+  .ink-zoom {
+    font-size: 42px; font-weight: 600; letter-spacing: -.04em; padding: 20px 12px; text-align: center;
+  }
+  .split { display: grid; grid-template-columns: 1fr 1fr; min-height: 48px; border: 1px solid var(--arch-gray-400); }
+  .split span { display: grid; place-items: center; color: #000; font-size: 12px; font-weight: 600; }
+  .ratio { font-variant-numeric: tabular-nums; }
+  .ratio.ok { color: var(--arch-gray-700); }
+  .ratio.bad { color: #c45c5c; }
+  textarea {
+    width: 100%; min-height: 4.5em; margin: 0; padding: 8px;
+    background: var(--arch-surface); color: var(--arch-on-surface); border: 1px solid var(--arch-gray-400); font: 13px/1.4 var(--arch-font-sans);
+  }
+  .bar {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
+    display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px;
+    padding: 12px 16px; background: var(--arch-surface); border-top: 1px solid var(--arch-gray-400);
+  }
+  .bar-title { font-weight: 600; }
+  .bar-hint { color: var(--arch-gray-900); flex: 1 1 180px; font-size: 13px; }
+  #copy-json {
+    appearance: none; font: 500 13px var(--arch-font-sans);
+    padding: 6px 12px; background: var(--arch-surface); color: var(--arch-on-surface); border: 1px solid var(--arch-gray-400); cursor: pointer;
+  }
+  #copy-fallback { position: fixed; left: 0; top: 0; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+  .bough-picks { max-width: 52em; margin: 0 0 20px; }
+  .bough-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  @media (max-width: 860px) { .bough-row { grid-template-columns: 1fr 1fr; } }
+  .bough-pick {
+    appearance: none; font: inherit; text-align: left; cursor: pointer;
+    background: var(--void); color: var(--voice); border: 1px solid var(--hairline); padding: 10px;
+  }
+  .bough-pick.on { border-color: var(--bough); }
+  .bough-pick .bough { display: block; font-family: var(--arch-font-mono); font-size: 12px; color: var(--bough); margin-bottom: 6px; }
+  .bough-pick .pick-id { display: block; font-weight: 600; font-size: 13px; }
+  .file-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 16px; }
+  .file-chips code { white-space: nowrap; }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+  <footer class="bar">
+    <p class="bar-title">Archanglic beam dash</p>
+    <p class="bar-hint">Part 2: click an option or type the letter. Copy JSON and paste in chat.</p>
+    <button type="button" id="copy-json">Copy JSON</button>
+  </footer>
+  <textarea id="copy-fallback" aria-hidden="true" tabindex="-1"></textarea>
+  <script src="./archanglic/vendor/highlight.min.js"></script>
+  <script src="./archanglic/snippet.js"></script>
+  <script type="module" src="./app.bundle.js"></script>
+  <script>
+  (function () {
+    var copyBtn = document.getElementById("copy-json");
+    var fallback = document.getElementById("copy-fallback");
+    var copiedTimer = null;
+    function payload() {
+      var nodes = document.querySelectorAll("[data-item-id]");
+      var items = [];
+      for (var i = 0; i < nodes.length; i++) {
+        var node = nodes[i];
+        var ta = node.querySelector("textarea");
+        items.push({
+          id: node.getAttribute("data-item-id"),
+          label: node.getAttribute("data-label"),
+          notes: ta ? ta.value : ""
+        });
+      }
+      return JSON.stringify({ review: "archanglic-beam-decisions", items: items }, null, 2);
+    }
+    function fallbackCopy(text) {
+      fallback.value = text;
+      fallback.removeAttribute("aria-hidden");
+      fallback.style.opacity = "1";
+      fallback.style.width = "8px";
+      fallback.style.height = "8px";
+      fallback.focus();
+      fallback.select();
+      var ok = false;
+      try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
+      fallback.setAttribute("aria-hidden", "true");
+      fallback.style.opacity = "0";
+      fallback.style.width = "1px";
+      fallback.style.height = "1px";
+      fallback.value = "";
+      return ok;
+    }
+    function markCopied() {
+      copyBtn.textContent = "Copied";
+      if (copiedTimer) clearTimeout(copiedTimer);
+      copiedTimer = setTimeout(function () {
+        copyBtn.textContent = "Copy JSON";
+        copiedTimer = null;
+      }, 1600);
+    }
+    copyBtn.addEventListener("click", function () {
+      var text = payload();
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(markCopied).catch(function () {
+          if (fallbackCopy(text)) markCopied();
+        });
+        return;
+      }
+      if (fallbackCopy(text)) markCopied();
+    });
+  })();
+  </script>
+</body>
+</html>

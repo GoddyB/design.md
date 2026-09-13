@@ -1,0 +1,10 @@
+{
+  "name": "archanglic-beam-dash",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "border-beam": "file:./vendor/border-beam",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}

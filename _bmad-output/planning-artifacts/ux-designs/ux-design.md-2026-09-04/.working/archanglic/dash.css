@@ -1,0 +1,33 @@
+/* Shared Archanglic chrome for UX dashes. Page layout stays in each dash. */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  background: var(--arch-surface);
+  color: var(--arch-on-surface);
+}
+
+body {
+  margin: 0;
+  background: var(--arch-surface);
+  color: var(--arch-on-surface);
+  font-family: var(--arch-font-sans);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.45;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--arch-font-sans);
+  font-weight: 600;
+}
+
+a { color: var(--arch-on-surface); }
+
+button, input, select, textarea {
+  font-family: inherit;
+}
+
+:focus-visible {
+  outline: 1px solid var(--arch-gray-900);
+  outline-offset: 1px;
+}

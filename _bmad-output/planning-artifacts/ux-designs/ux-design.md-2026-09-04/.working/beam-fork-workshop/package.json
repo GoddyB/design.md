@@ -1,0 +1,10 @@
+{
+  "name": "archanglic-beam-fork-workshop",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "border-beam": "file:/home/founder/forks/border-beam/packages/border-beam",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}

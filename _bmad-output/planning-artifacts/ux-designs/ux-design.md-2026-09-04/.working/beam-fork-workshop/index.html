@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="/ux-beam-fork/" />
+<title>Archanglic — border-beam fork workshop</title>
+<link rel="stylesheet" href="./archanglic/fonts.css">
+<link rel="stylesheet" href="./archanglic/dash.css">
+<link rel="stylesheet" href="./archanglic/themes/default.css">
+<link rel="stylesheet" href="./archanglic/archanglic.css">
+<style>
+  body { padding: 20px 16px 72px; }
+  h1, h2, h3, p { margin: 0; }
+  h1 { font-size: 16px; }
+  h2 { font-size: 15px; margin: 32px 0 10px; }
+  h3 { font-size: 13px; font-weight: 600; color: var(--arch-gray-900); letter-spacing: .04em; text-transform: uppercase; margin: 22px 0 8px; }
+  .lede, .hint { color: var(--arch-gray-900); max-width: 52em; }
+  .lede { margin: 4px 0 16px; }
+  .hint { font-size: 13px; margin: 0 0 10px; }
+  .top { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: baseline; margin-bottom: 8px; }
+  .top nav { display: flex; flex-wrap: wrap; gap: 16px; color: var(--arch-gray-900); }
+  .note {
+    border: 1px solid var(--arch-gray-400); padding: 12px; margin: 0 0 20px; color: var(--arch-gray-900); max-width: 52em;
+  }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; margin: 8px 0 20px; }
+  .cell { min-height: 96px; display: grid; place-items: center; }
+  .chip {
+    background: var(--arch-surface); color: var(--arch-on-surface);
+    border: 1px solid #ededed33; border-radius: 10px;
+    padding: 10px 14px; font-size: 13px; font-weight: 600;
+  }
+  .pill {
+    background: var(--arch-surface); color: var(--arch-on-surface);
+    border: 1px solid #ededed33; border-radius: 999px;
+    padding: 10px 28px; font-size: 13px; font-weight: 600;
+    min-width: 220px; text-align: center;
+  }
+  .square {
+    background: var(--arch-surface); color: var(--arch-on-surface);
+    border: 1px solid #ededed33; border-radius: 16px;
+    width: 88px; height: 88px; display: grid; place-items: center;
+    font-size: 13px; font-weight: 600;
+  }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; margin: 8px 0 20px; max-width: 56em; }
+  @media (max-width: 860px) { .pair { grid-template-columns: 1fr; } }
+  .stage { min-height: 140px; display: grid; place-items: center; border: 1px solid var(--arch-gray-400); padding: 28px; }
+  .stage-wide { min-height: 120px; display: grid; place-items: center; border: 1px solid var(--arch-gray-400); padding: 28px 20px; }
+  .label { font-size: 12px; color: var(--arch-gray-900); margin: 0 0 8px; }
+  ol, ul { max-width: 52em; color: var(--arch-on-surface); padding-left: 1.2em; }
+  li { margin: 0 0 8px; }
+  a { color: var(--arch-on-surface); }
+  .steps { border: 1px solid var(--arch-gray-400); padding: 12px 12px 4px; margin: 0 0 20px; max-width: 52em; }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="./archanglic/vendor/highlight.min.js"></script>
+  <script src="./archanglic/snippet.js"></script>
+  <script type="module" src="./app.bundle.js"></script>
+</body>
+</html>
