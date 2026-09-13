@@ -214,20 +214,31 @@ button.secondary:not(.outline, .no-beam),
 }
 
 nav:not(.no-beam) {
-  --beam-size: 1px;
-  --beam-strength: 0.45;
+  --beam-size: 2px;
+  --beam-strength: 0.7;
+  --beam-saturation: 0.85;
   --beam-duration: 4s;
   --beam-placement: bottom-edge;
+  overflow: visible;
 }
 
 .border-beam-focus:focus-visible,
 .border-beam-focus:focus-within {
-  --beam-size: 1px;
-  --beam-strength: 0.45;
+  --beam-size: 2px;
+  --beam-strength: 0.7;
+  --beam-saturation: 0.85;
   --beam-placement: full-box;
 }
 
 label .border-beam-focus {
   display: block;
+  padding: var(--beam-size, 2px);
   border-radius: var(--pico-border-radius);
+}
+
+.border-beam-focus:focus-within input,
+.border-beam-focus:focus-within textarea,
+.border-beam-focus:focus-within select {
+  box-shadow: none;
+  outline: none;
 }

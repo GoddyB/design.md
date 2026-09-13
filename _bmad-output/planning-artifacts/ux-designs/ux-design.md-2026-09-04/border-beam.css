@@ -114,6 +114,7 @@
   border-radius: 0;
   -webkit-mask: none;
   mask: none;
+  z-index: 2;
   background: linear-gradient(90deg, var(--beam-stops));
   background-size: 200% 100%;
   animation: arch-beam-line var(--beam-duration) linear infinite;
