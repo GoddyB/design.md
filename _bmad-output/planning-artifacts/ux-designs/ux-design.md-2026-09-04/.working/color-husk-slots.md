@@ -15,6 +15,7 @@ Fill these. Geist blue/red/amber/green/teal/purple/pink ladders are **not** used
 | `tertiary` | `#a1a1a1` | Rare emphasis. Distinct from ghost secondary. |
 | `primary` | `#000000` | **c.** Void fill + hairline / thin rainbow-glass beam. **Not a filled pill.** Do not reopen. Pico: `--pico-primary-background: #000`; links `--pico-primary: #ededed`. |
 | `on-primary` | `#ededed` | **a.** Ink on the void/beam Deploy. Same as `on-surface`. Pico `--pico-primary-inverse`. Do not reopen. |
+| `error` | `#eb1000` | **c / write-in.** Invalid / destructive. Red, not a Geist ladder. Do not reopen. |
 
 ## Pico map (locked)
 
@@ -22,6 +23,6 @@ See `.working/pico-theme-map.md`. Theme file: `archanglic.pico.css`. Beam recipe
 
 ## Open (next dash)
 
-`error` (red), `on-error`, `on-tertiary`, `outline` (white or border-beam), `outline-variant` (white or border-beam), border-beam knobs (size / strength).
+`on-error`, `on-tertiary`, `outline` (white or border-beam), `outline-variant` (white or border-beam), border-beam knobs (size / strength).
 
-Board: `.working/decision-boards/` — **error now**.
+Board: `.working/decision-boards/` — **on-error next** (queued card; do not invent a lock).

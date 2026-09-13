@@ -12,10 +12,11 @@ Cloud session 2026-09-13. Continues the paused coaching run on `main` (`wip: Arc
 
 Colors, mid husk slots. Brand & Style + voice already locked. The last live dashes (`/ux-color-board`, `/ux-beam`) lived on arch-gcs; this resume does not revive Tailscale. Open locally:
 
-- [`.working/decision-boards/index.html`](.working/decision-boards/index.html) — **error a/b/c now** (three fat columns; they do not stack)
-- [`.working/decision-boards/error.md`](.working/decision-boards/error.md) — same question in text
-- [`.working/pico-theme-demo.html`](.working/pico-theme-demo.html) — Pico classed sketch: void Deploy + shared beam; **navbar bottoms required** (`nav.arch-navbar` + `[role=navigation]`)
-- Queued slots: [`.working/decision-boards/queued.md`](.working/decision-boards/queued.md)
+- [`.working/decision-boards/index.html`](.working/decision-boards/index.html) — **on-error a/b/c now** (ink on locked `#eb1000`; three fat columns; they do not stack)
+- [`.working/decision-boards/queued.md`](.working/decision-boards/queued.md) — same question in text
+- [`.working/pico-theme-demo.html`](.working/pico-theme-demo.html) — Pico classed sketch: void Deploy + shared hotspot/bloom beam; **navbar bottoms required**
+- [`.working/ux-navbar-beam.html`](.working/ux-navbar-beam.html) — Deploy + navbar bottom on void (Safari proof surface)
+- Beam SSOT: [`border-beam.css`](./border-beam.css) — Safari notes in [`.working/border-beam-vanilla.md`](.working/border-beam-vanilla.md)
 
 Prior visual QA failure: husk-board painted the word “Archanglic” and offered `#ededed` / `#ffffff` / alias-of-a. Those two whites are **1.17:1** against each other — they look identical. This board does not repeat that trio.
 
@@ -39,6 +40,7 @@ Prior visual QA failure: husk-board painted the word “Archanglic” and offere
 | `tertiary` | `#a1a1a1` | Rare emphasis badge. Distinct from ghost secondary. |
 | `primary` | `#000000` | **c.** Void fill + hairline / thin rainbow-glass beam. Not a filled pill. Pico: `--pico-primary-background: #000`; links `--pico-primary: #ededed`. |
 | `on-primary` | `#ededed` | **a.** Ink on the void/beam Deploy. Same as `{colors.on-surface}`. Pico `--pico-primary-inverse`. |
+| `error` | `#eb1000` | **c / write-in.** Adobe red. Invalid / destructive. Not a Geist ladder. Pico `--arch-error`. |
 | Geist accent ladders | **not used** | Do not reuse blue/red/amber/green/teal/purple/pink as brand accents. |
 | Snippet/tree | [`archanglic.css`](./archanglic.css) | DESIGN.md only points at it. Tree: canopy `#7ee787`, bough Grok-orange TBD, twig Knicks `#006bb6`. |
 | `border-beam` | analogue, not a husk slot | Rainbow-glass = edge-only chromatic seam. **SSOT:** [`border-beam.css`](./border-beam.css). Navbar bottoms **required** (`nav` / `[role=navigation]` / `.arch-navbar`, `--beam-placement: bottom-edge`). Other chrome opt-in via classes and `--beam-*` knobs. Not React. |
@@ -49,31 +51,27 @@ Prior visual QA failure: husk-board painted the word “Archanglic” and offere
 
 ## Open questions
 
-Answer **error** first (rapid-fire). Everything else stays queued.
+Answer **on-error** first (rapid-fire). Do not reopen primary / on-primary / error. Everything else stays queued.
 
-1. **NOW — husk `error`.** a / b / c on the decision board. Exact question below.
-2. Then, one slot at a time: `on-error` → `on-tertiary` → `outline` → `outline-variant` → border-beam size → border-beam strength.
+1. **NOW — husk `on-error`.** a / b / c on the decision board. Exact question below.
+2. Then, one slot at a time: `on-tertiary` → `outline` → `outline-variant` → border-beam size → border-beam strength.
 3. Grok bough orange (tree floor, not a husk slot): night-ember `#ff9e64` (current default) / path-amber `#f1bd00` / warn-gold `#ebd96e` / token-sun `#ffdb69`.
 4. Confirm vanilla `.border-beam` knobs (size/strength) after husk colors. React `border-beam` is not in the theme. The recipe is already one file.
 5. Typography phase after Colors close. Live-site typeface is a candidate to *show*, not auto-locked. Palette-page `ui-sans-serif, system-ui` is not the identity.
 
 ## Exact next question
 
-**Husk `error` — invalid / destructive. Must be red somewhere. Not a Geist red ladder.**
+**Husk `on-error` — ink on locked error fill `#eb1000`. The Delete label is the token.**
 
-Paws: error is its own palette, never primary recycled as “angry.” Official-example one-liner: error is diagnosis, not a second primary.
+Fill stays Adobe red in every column. Only the ink hex changes. The word “Archanglic” is always `#ededed`. Columns do not stack; scroll sideways.
 
-The word “Archanglic” is always `#ededed`. Look at the **invalid line** (a, c) or the **Delete fill** (b).
+| | Hex | Role |
+|---|---|---|
+| **a** | `#ffffff` | hot white on Adobe red. vs page text `#ededed` is 1.17:1 — if Delete looks like body copy, say so |
+| **b** | `#000000` | void ink on the red fill. Distinct from a |
+| **c** | `#690005` | deep maroon. May collapse into the fill — if you cannot read Delete, do not pick c |
 
-| | Hex | Role | vs `#000` | vs `#ededed` |
-|---|---|---|---|---|
-| **a** | `#ffb4ab` | Atmospheric/Totality dark-theme error — **text on black** | 12.37:1 AA | 1.45:1 fail as fill under type-white |
-| **b** | `#ba1a1a` | Paws error — **filled Delete** | 3.25:1 fail as text-on-black | 5.52:1 AA as fill under type-white |
-| **c** | `#c45c5c` | muted rust, still clearly red — **text on black** | 5.03:1 AA | 3.56:1 fail as fill under type-white |
-
-a and c are line-on-void. b is a pill. Pick the job, then the hex.
-
-Reply with `error: a` / `error: b` / `error: c`, or a write-in hex that is **not** a Geist accent ladder and is not `{colors.primary}` recycled as angry.
+Reply with `on-error: a` / `on-error: b` / `on-error: c`. Pico: `--arch-on-error`. Do not invent a lock.
 
 ## Remaining phase ladder
 
@@ -93,6 +91,8 @@ Reply with `error: a` / `error: b` / `error: c`, or a write-in hex that is **not
 - `border-beam.css` — **only** `@property` / `@keyframes` / gradient recipe; consumers `@import` or opt in
 - `archanglic.pico.css` — Pico variable map; `@import`s the beam file; knobs only
 - `.working/pico-theme-map.md`, `.working/pico-theme-demo.html`
-- `.working/decision-boards/` — primary + on-primary locked; error board live
+- `.working/decision-boards/` — primary + on-primary + error locked; on-error board live
+- `border-beam.css` — fidelity rebuild (hotspot + inner glow + bloom; Safari two-mask xor; line travels `left`)
 - `.working/border-beam-vanilla.css` — re-export of `border-beam.css`
-- Memlog events for the resume, Pico target, primary/on-primary locks, beam SSOT
+- `.working/ux-navbar-beam.html` — Deploy + navbar bottom proof
+- Memlog events for the resume, Pico target, primary/on-primary/error locks, beam SSOT + fidelity rebuild

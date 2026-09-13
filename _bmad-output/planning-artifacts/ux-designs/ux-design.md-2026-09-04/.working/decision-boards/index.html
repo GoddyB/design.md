@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Archanglic — husk error</title>
+<title>Archanglic — husk on-error</title>
 <link rel="stylesheet" href="../archanglic/fonts.css">
 <link rel="stylesheet" href="../../archanglic.css">
 <link rel="stylesheet" href="../../archanglic.pico.css">
@@ -62,37 +62,22 @@
     flex-direction: column;
   }
   .stage {
-    min-height: 220px;
+    min-height: 200px;
     display: flex;
     flex-direction: column;
-    align-items: stretch;
+    align-items: center;
     justify-content: center;
-    gap: 12px;
-    padding: 20px 16px;
+    gap: 16px;
+    padding: 20px 12px;
     background: #000;
   }
-  .word { color: #ededed; font-weight: 600; margin: 0; font-size: 13px; text-align: center; }
-  .field {
-    border: 1px solid #2e2e2e;
-    border-radius: 6px;
-    padding: 10px 12px;
-    color: #ededed;
-    font-family: "Geist Mono", ui-monospace, monospace;
-    font-size: 13px;
-  }
-  .err {
-    margin: 0;
-    font-size: 13px;
-    line-height: 1.35;
-  }
+  .word { color: #ededed; font-weight: 600; margin: 0; font-size: 13px; }
   .delete {
     display: inline-block;
-    align-self: center;
     padding: 14px 28px;
     border-radius: 8px;
-    border: 1px solid #ba1a1a;
-    background: #ba1a1a;
-    color: #ededed;
+    border: 1px solid #eb1000;
+    background: #eb1000;
     font-size: 22px;
     font-weight: 600;
     line-height: 1;
@@ -119,63 +104,58 @@
 </head>
 <body>
 <main>
-  <h1>Archanglic — husk <code>error</code></h1>
+  <h1>Archanglic — husk <code>on-error</code></h1>
   <p class="locked">
-    <strong>Primary locked (c).</strong> Void fill <code>#000000</code> + hairline / thin beam.
-    <strong>on-primary locked (a)</strong> <code>#ededed</code>. Do not reopen.
+    <strong>Primary locked (c)</strong> void + beam.
+    <strong>on-primary locked (a)</strong> <code>#ededed</code>.
+    <strong>error locked</strong> <code>#eb1000</code>. Do not reopen.
   </p>
   <p class="lede">
-    The <strong>invalid line</strong> (a, c) or the <strong>Delete fill</strong> (b) is the token.
+    The <strong>Delete label</strong> is the token. Fill is locked <code>#eb1000</code> in every column — only the ink hex changes.
     The word “Archanglic” is always <code>#ededed</code>. Columns do not stack; scroll sideways.
-    Must be red somewhere. Not a Geist red ladder.
   </p>
 
-<pre class="ascii">token name
-[________________]
- ! This token does not resolve. You cannot ship it.
-   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   this color</pre>
+<pre class="ascii">[ Delete ]
+  ^^^^^^
+  this INK on #eb1000</pre>
 
-  <p class="hint">a and c = line-on-void. b = filled pill. Pick the job, then the hex.</p>
+  <p class="hint">Queued card. Do not invent a lock. Fill is the locked error red, not the old a/b swatches.</p>
 
   <div class="board" role="list">
     <article class="col" role="listitem" id="opt-a">
-      <div class="inkbar" style="background:#ffb4ab;color:#000">a — THE LINE &nbsp; #ffb4ab</div>
+      <div class="inkbar" style="background:#ffffff;color:#000">a — THE INK &nbsp; #ffffff</div>
       <div class="stage">
         <p class="word">Archanglic</p>
-        <div class="field">colors.primary…</div>
-        <p class="err" style="color:#ffb4ab">This token does not resolve. You cannot ship it.</p>
+        <span class="delete" style="color:#ffffff">Delete</span>
       </div>
       <p class="meta">
-        <b>a)</b> Atmospheric/Totality error text on black. vs <code>#000</code> 12.37:1 AA. Fails as a fill under type-white.
+        <b>a)</b> hot white on Adobe red. vs <code>#ededed</code> 1.17:1 — if the label looks like page text, say so.
       </p>
     </article>
     <article class="col" role="listitem" id="opt-b">
-      <div class="inkbar" style="background:#ba1a1a;color:#ededed">b — THE FILL &nbsp; #ba1a1a</div>
+      <div class="inkbar" style="background:#000000;color:#ededed">b — THE INK &nbsp; #000000</div>
       <div class="stage">
         <p class="word">Archanglic</p>
-        <span class="delete">Delete</span>
-        <p class="err" style="color:#a1a1a1">Filled destructive. Ink on it is the next slot.</p>
+        <span class="delete" style="color:#000000">Delete</span>
       </div>
       <p class="meta">
-        <b>b)</b> Paws filled Delete. vs <code>#ededed</code> 5.52:1 AA as fill. Fails as text-on-black (3.25:1).
+        <b>b)</b> void ink on the red fill. Distinct from a.
       </p>
     </article>
     <article class="col" role="listitem" id="opt-c">
-      <div class="inkbar" style="background:#c45c5c;color:#000">c — THE LINE &nbsp; #c45c5c</div>
+      <div class="inkbar" style="background:#690005;color:#ededed">c — THE INK &nbsp; #690005</div>
       <div class="stage">
         <p class="word">Archanglic</p>
-        <div class="field">colors.primary…</div>
-        <p class="err" style="color:#c45c5c">This token does not resolve. You cannot ship it.</p>
+        <span class="delete" style="color:#690005">Delete</span>
       </div>
       <p class="meta">
-        <b>c)</b> muted rust, still clearly red. vs <code>#000</code> 5.03:1 AA. Fails as a fill under type-white.
+        <b>c)</b> deep maroon. May collapse into the fill — if you cannot read Delete, do not pick c.
       </p>
     </article>
   </div>
 
   <p class="note">
-    Reply: <code>error: a</code> · <code>b</code> · <code>c</code>. Pico invalid chrome stays gray until you pick.
+    Reply: <code>on-error: a</code> · <code>b</code> · <code>c</code>. Pico: <code>--arch-on-error</code>.
     Queued: <a href="./queued.md">queued.md</a>. Pico demo: <a href="../pico-theme-demo.html">pico-theme-demo.html</a>.
   </p>
 </main>

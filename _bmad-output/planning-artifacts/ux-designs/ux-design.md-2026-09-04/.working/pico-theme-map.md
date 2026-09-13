@@ -15,7 +15,7 @@ Sketch only. Remaining husk opens stay TODO.
 | `gray-400` | `#2e2e2e` | `--pico-muted-border-color`, `--pico-table-border-color`, `--pico-form-element-border-color` (until husk `outline`) |
 | `gray-100` | `#1a1a1a` | `--pico-secondary-hover-background`, `--pico-dropdown-hover-background-color`; second-action rest fill (chrome, not a hue) |
 | `primary` | `#000000` | `--pico-primary-background` (void, option **c**). Not a pill. |
-| `on-primary` | `#ededed` | `--pico-primary-inverse` / `--arch-on-primary` (option **a**) |
+| `error` | `#eb1000` | `--pico-del-color`, `--pico-form-element-invalid-*`, `--arch-error` |
 | primary links | `#ededed` | `--pico-primary` (`--arch-primary-link`) — Pico split from button fill |
 | secondary omitted | chrome | `--pico-secondary-background: gray-100` + thin beam; `.outline.secondary` stays ghost |
 | no elevation | — | `--pico-box-shadow: none`, `--pico-card-box-shadow: none` |
@@ -26,8 +26,7 @@ Geist gray-100…900 also exist as `--arch-gray-*` on `:root` for anything Pico 
 
 | Husk | Pico | Placeholder (not locked) |
 |---|---|---|
-| `error` | `--pico-del-color`, `--pico-form-element-invalid-*` | `gray-500` until red pick |
-| `on-error` | (invalid button inverse — not a Pico name) | `--arch-on-error` |
+| `on-error` | `--arch-on-error` | `--arch-on-surface` until pick |
 | `on-tertiary` | `--pico-mark-color` | `#000000` |
 | `outline` | `--pico-form-element-active-border-color`, `--pico-blockquote-border-color`, `--arch-outline` | `#ededed` (Goddy: white or beam) |
 
@@ -43,7 +42,7 @@ Geist gray-100…900 also exist as `--arch-gray-*` on `:root` for anything Pico 
 | focus rings | class `.border-beam-focus` on a wrapper (`:focus-within`); not on `<input>` itself |
 | any other chrome | class `.border-beam` or `data-beam-placement` |
 
-Knobs (override per element, do not fork the recipe): `--beam-size`, `--beam-strength`, `--beam-duration`, `--beam-placement`.
+Knobs (override per element, do not fork the recipe): `--beam-size`, `--beam-strength`, `--beam-duration`, `--beam-radius`, `--beam-fill`, `--beam-saturation`, `--beam-brightness`.
 
 ## Classless + classed
 

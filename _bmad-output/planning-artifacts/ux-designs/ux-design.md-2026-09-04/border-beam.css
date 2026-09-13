@@ -1,140 +1,319 @@
 /* Archanglic rainbow-glass — SINGLE SOURCE OF TRUTH.
  *
- * Load this file once. Do not copy @property, @keyframes, or gradient
- * recipes into archanglic.pico.css, nav CSS, or demos.
+ * Fidelity port of Jakub Antalik / GoddyB border-beam (vanilla, no React).
+ * Safari iOS: do NOT use 3-layer mask-composite. That dropped the ring and
+ * read as a gray hairline (Goddy’s /ux-navbar-beam shot).
+ *
+ * Full-box (no mask):
+ *   Host paints a transparent border + dual background
+ *     padding-box = --beam-fill (solid interior)
+ *     border-box  = short hotspot conic + localized color ellipses
+ *   ::before — inner glow (edge blobs + inset highlight)
+ *   ::after  — outer bloom (same hotspot, blurred, behind the fill)
+ *
+ * Line / navbar (no mask, no @property required):
+ *   ::after  — ≥3px traveling linear beam (background-position)
+ *   ::before — blurrier bloom copy
+ *
+ * Load this file once. Do not copy @property, @keyframes, or gradients
+ * into archanglic.pico.css, nav CSS, or demos.
  *
  * Opt-in:
- *   class="border-beam"                         full-box (--beam-placement: full-box)
- *   class="border-beam-bottom"                  bottom-edge (navbar)
- *   class="border-beam-line"                    alias of bottom-edge
- *   data-beam-placement="full-box|bottom-edge"  same as the classes
- *   class="border-beam-focus"                   full-box while :focus-visible or :focus-within
- *                                               (wrap <input> — replaced elements cannot paint ::after)
- *   class="no-beam"                             opt out (Pico surfaces wired below)
+ *   .border-beam                         full perimeter (md-like)
+ *   .border-beam--bottom | --line        bottom traveling line (navbar)
+ *   .border-beam-bottom | .border-beam-line   aliases
+ *   .border-beam--sm | .border-beam-sm   compact (buttons)
+ *   .border-beam--pulse                  pulse-inner (seam breathes)
+ *   .border-beam-focus                   full-box while :focus-visible/:focus-within
  *
- * Knobs (override on the element):
- *   --beam-size  --beam-strength  --beam-duration  --beam-saturation
- *   --beam-placement  (set by classes / Pico aliases; do not fork the recipe)
- *
- * Pico aliases (same recipe, so a tweak here updates every surface):
- *   primary button / [type=submit]              full-box
- *   nav, [role=navigation], .arch-navbar        bottom-edge (required — not a gray hairline)
- *   button.secondary (not .outline)             full-box, quieter knobs from the theme
- *
- * Fill stays the element's own background. No React.
+ * Knobs:
+ *   --beam-size --beam-strength --beam-duration --beam-radius
+ *   --beam-fill --beam-saturation --beam-brightness --beam-hue-range
  */
 :root {
-  --beam-size: 1px;
-  --beam-strength: 0.45;
-  --beam-duration: 4s;
-  --beam-saturation: 0.65;
-  --beam-placement: full-box;
-  --beam-stops:
-    rgb(255, 50, 100),
-    rgb(255, 170, 40),
-    rgb(50, 200, 100),
-    rgb(40, 140, 255),
-    rgb(200, 50, 240),
-    rgb(255, 50, 100);
+  --beam-size: 2px;
+  --beam-strength: 1;
+  --beam-duration: 2.2s;
+  --beam-radius: inherit;
+  --beam-fill: #000000;
+  --beam-saturation: 1.16;
+  --beam-brightness: 1.32;
+  --beam-hue-range: 28deg;
+  --beam-stroke-opacity: 1;
+  --beam-bloom-opacity: 0.55;
+  --beam-inner-opacity: 0.5;
 }
 
 @property --beam-angle {
   syntax: "<angle>";
-  inherits: false;
-  initial-value: 0deg;
+  inherits: true;
+  initial-value: 48deg;
+}
+
+:root {
+  --beam-color-blobs:
+    radial-gradient(ellipse 70px 40px at 33% -7.4%, rgb(255, 50, 100), transparent),
+    radial-gradient(ellipse 60px 35px at 12% -5%, rgb(40, 140, 255), transparent),
+    radial-gradient(ellipse 40px 70px at 2.1% 68.3%, rgb(50, 200, 80), transparent),
+    radial-gradient(ellipse 20px 35px at 2.1% 68.3%, rgb(30, 185, 170), transparent),
+    radial-gradient(ellipse 180px 32px at 74.4% 100%, rgb(100, 70, 255), transparent),
+    radial-gradient(ellipse 85px 26px at 55% 100%, rgb(40, 140, 255), transparent),
+    radial-gradient(ellipse 74px 32px at 93.9% 0%, rgb(255, 120, 40), transparent),
+    radial-gradient(ellipse 26px 42px at 100% 27.1%, rgb(240, 50, 180), transparent),
+    radial-gradient(ellipse 52px 48px at 100% 27.1%, rgb(180, 40, 240), transparent);
+  --beam-inner-blobs:
+    radial-gradient(ellipse 63px 36px at 33% -7.4%, rgba(255, 50, 100, 0.45), transparent),
+    radial-gradient(ellipse 54px 32px at 12% -5%, rgba(40, 140, 255, 0.45), transparent),
+    radial-gradient(ellipse 36px 63px at 2.1% 68.3%, rgba(50, 200, 80, 0.45), transparent),
+    radial-gradient(ellipse 18px 32px at 2.1% 68.3%, rgba(30, 185, 170, 0.45), transparent),
+    radial-gradient(ellipse 162px 29px at 74.4% 100%, rgba(100, 70, 255, 0.45), transparent),
+    radial-gradient(ellipse 77px 23px at 55% 100%, rgba(40, 140, 255, 0.45), transparent),
+    radial-gradient(ellipse 67px 29px at 93.9% 0%, rgba(255, 120, 40, 0.45), transparent),
+    radial-gradient(ellipse 23px 38px at 100% 27.1%, rgba(240, 50, 180, 0.45), transparent),
+    radial-gradient(ellipse 47px 43px at 100% 27.1%, rgba(180, 40, 240, 0.45), transparent);
+  /* Original md white hotspot — ~24% of the cone. Rest transparent, never a sticker. */
+  --beam-hotspot:
+    conic-gradient(
+      from var(--beam-angle, 48deg),
+      transparent 0%,
+      transparent 54%,
+      rgba(255, 255, 255, 0.12) 57%,
+      rgba(255, 255, 255, 0.35) 60%,
+      rgb(255, 50, 100) 63%,
+      rgb(255, 255, 255) 66%,
+      rgb(50, 200, 80) 68%,
+      rgb(40, 140, 255) 71%,
+      rgba(255, 255, 255, 0.35) 74%,
+      rgba(255, 255, 255, 0.1) 76%,
+      transparent 80%,
+      transparent 100%
+    );
+  --beam-line-stroke:
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      rgb(255, 50, 100) 16%,
+      rgb(255, 170, 40) 28%,
+      rgb(255, 255, 255) 40%,
+      rgb(50, 200, 80) 52%,
+      rgb(40, 140, 255) 64%,
+      rgb(180, 40, 240) 78%,
+      rgb(240, 50, 180) 88%,
+      transparent 100%
+    );
 }
 
 .border-beam,
 [data-border-beam],
 [data-beam-placement="full-box"],
-.border-beam-bottom,
-.border-beam-line,
-[data-beam-placement="bottom-edge"],
-[data-border-beam="line"],
 .border-beam-focus:focus-visible,
 .border-beam-focus:focus-within,
-:where(button, [type="submit"]):not(.secondary, .contrast, .outline, .no-beam),
-:where(button.secondary, [type="submit"].secondary):not(.outline, .no-beam),
-:where(nav, [role="navigation"], .arch-navbar) {
+button:not(.secondary, .contrast, .outline, .no-beam),
+[type="submit"]:not(.secondary, .contrast, .outline, .no-beam),
+button.secondary:not(.outline, .no-beam),
+[type="submit"].secondary:not(.outline, .no-beam) {
   position: relative;
   isolation: isolate;
+  overflow: visible;
   --beam-placement: full-box;
+  --beam-angle: 48deg;
+  border: var(--beam-size) solid transparent;
+  background-color: var(--beam-fill);
+  background-image:
+    linear-gradient(var(--beam-fill), var(--beam-fill)),
+    var(--beam-hotspot),
+    var(--beam-color-blobs);
+  background-origin: padding-box, border-box, border-box;
+  background-clip: padding-box, border-box, border-box;
+  animation: arch-beam-spin var(--beam-duration, 2.2s) linear infinite;
 }
 
+.border-beam--bottom,
+.border-beam--line,
 .border-beam-bottom,
 .border-beam-line,
 [data-beam-placement="bottom-edge"],
 [data-border-beam="line"],
-:where(nav, [role="navigation"], .arch-navbar) {
+nav,
+[role="navigation"],
+.arch-navbar {
+  position: relative;
+  isolation: isolate;
+  overflow: visible;
   --beam-placement: bottom-edge;
+  --beam-duration: 3.1s;
+  background-image: none;
+  animation: none;
 }
 
-.border-beam::after,
-[data-border-beam]::after,
-[data-beam-placement="full-box"]::after,
-.border-beam-bottom::after,
-.border-beam-line::after,
-[data-beam-placement="bottom-edge"]::after,
-[data-border-beam="line"]::after,
-.border-beam-focus:focus-visible::after,
-.border-beam-focus:focus-within::after,
-:where(button, [type="submit"]):not(.secondary, .contrast, .outline, .no-beam)::after,
-:where(button.secondary, [type="submit"].secondary):not(.outline, .no-beam)::after,
-:where(nav, [role="navigation"], .arch-navbar)::after {
+/* Inner glow — under the label, edge-weighted, not a fill. */
+.border-beam::before,
+[data-border-beam]::before,
+[data-beam-placement="full-box"]::before,
+.border-beam-focus:focus-visible::before,
+.border-beam-focus:focus-within::before,
+button:not(.secondary, .contrast, .outline, .no-beam)::before,
+[type="submit"]:not(.secondary, .contrast, .outline, .no-beam)::before,
+button.secondary:not(.outline, .no-beam)::before,
+[type="submit"].secondary:not(.outline, .no-beam)::before {
   content: "";
   position: absolute;
   inset: 0;
-  z-index: 1;
+  z-index: 0;
   border-radius: inherit;
-  padding: var(--beam-size);
   pointer-events: none;
-  box-sizing: border-box;
-  background: conic-gradient(from var(--beam-angle), var(--beam-stops));
-  filter: saturate(var(--beam-saturation)) brightness(1.08);
-  opacity: var(--beam-strength);
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  mask-composite: exclude;
-  animation: arch-beam-spin var(--beam-duration) linear infinite;
+  background: var(--beam-inner-blobs);
+  box-shadow: inset 0 0 9px 1px rgba(255, 255, 255, 0.27);
+  --beam-blur: 0px;
+  opacity: calc(var(--beam-strength) * var(--beam-inner-opacity));
+  animation: arch-beam-hue 12s ease-in-out infinite;
 }
 
+/* Outer bloom — behind the fill so only the spill reads. */
+.border-beam::after,
+[data-border-beam]::after,
+[data-beam-placement="full-box"]::after,
+.border-beam-focus:focus-visible::after,
+.border-beam-focus:focus-within::after,
+button:not(.secondary, .contrast, .outline, .no-beam)::after,
+[type="submit"]:not(.secondary, .contrast, .outline, .no-beam)::after,
+button.secondary:not(.outline, .no-beam)::after,
+[type="submit"].secondary:not(.outline, .no-beam)::after {
+  content: "";
+  position: absolute;
+  inset: -10px;
+  z-index: -1;
+  border-radius: calc(var(--beam-radius, 8px) + 10px);
+  border: var(--beam-size) solid transparent;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--beam-fill), var(--beam-fill)),
+    var(--beam-hotspot);
+  background-origin: padding-box, border-box;
+  background-clip: padding-box, border-box;
+  --beam-blur: 10px;
+  filter: blur(10px) brightness(var(--beam-brightness)) saturate(var(--beam-saturation));
+  opacity: calc(var(--beam-strength) * var(--beam-bloom-opacity));
+  animation:
+    arch-beam-spin var(--beam-duration, 2.2s) linear infinite,
+    arch-beam-hue 12s ease-in-out infinite;
+}
+
+/* ——— bottom line: traveling gradient, ≥3px, no mask ——— */
+.border-beam--bottom::before,
+.border-beam--line::before,
+.border-beam-bottom::before,
+.border-beam-line::before,
+[data-beam-placement="bottom-edge"]::before,
+[data-border-beam="line"]::before,
+nav::before,
+[role="navigation"]::before,
+.arch-navbar::before,
+.border-beam--bottom::after,
+.border-beam--line::after,
 .border-beam-bottom::after,
 .border-beam-line::after,
 [data-beam-placement="bottom-edge"]::after,
 [data-border-beam="line"]::after,
-:where(nav, [role="navigation"], .arch-navbar)::after {
+nav::after,
+[role="navigation"]::after,
+.arch-navbar::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: auto;
   inset: auto 0 0 0;
-  height: max(2px, var(--beam-size));
+  width: auto;
+  min-width: 0;
+  max-width: none;
   padding: 0;
+  border: 0;
   border-radius: 0;
-  -webkit-mask: none;
-  mask: none;
-  z-index: 2;
-  background: linear-gradient(90deg, var(--beam-stops));
-  background-size: 200% 100%;
-  animation: arch-beam-line var(--beam-duration) linear infinite;
+  pointer-events: none;
+  box-shadow: none;
+  background-color: transparent;
+  background-image: var(--beam-line-stroke);
+  background-repeat: no-repeat;
+  background-size: 42% 100%;
 }
 
-.border-beam-sm { --beam-size: 1px; --beam-duration: 3.2s; }
-.border-beam-md { --beam-size: 2px; --beam-duration: 2s; }
-.border-beam-quiet { --beam-strength: 0.35; --beam-saturation: 0.55; }
-.border-beam-present { --beam-strength: 0.55; --beam-saturation: 0.75; }
-.border-beam-loud { --beam-strength: 1; --beam-saturation: 1.2; }
-
-.border-beam-pulse::after,
-[data-border-beam="pulse-inner"]::after {
+.border-beam--bottom::after,
+.border-beam--line::after,
+.border-beam-bottom::after,
+.border-beam-line::after,
+[data-beam-placement="bottom-edge"]::after,
+[data-border-beam="line"]::after,
+nav::after,
+[role="navigation"]::after,
+.arch-navbar::after {
+  z-index: 2;
+  height: 3px;
+  bottom: 0;
+  --beam-blur: 0px;
+  filter: brightness(var(--beam-brightness)) saturate(var(--beam-saturation));
+  opacity: calc(var(--beam-strength) * 1);
   animation:
-    arch-beam-spin calc(var(--beam-duration) * 2.4) linear infinite,
+    arch-beam-line-pos var(--beam-duration, 3.1s) linear infinite,
+    arch-beam-hue 10s ease-in-out infinite;
+}
+
+.border-beam--bottom::before,
+.border-beam--line::before,
+.border-beam-bottom::before,
+.border-beam-line::before,
+[data-beam-placement="bottom-edge"]::before,
+[data-border-beam="line"]::before,
+nav::before,
+[role="navigation"]::before,
+.arch-navbar::before {
+  z-index: 1;
+  height: 16px;
+  bottom: -6px;
+  background-size: 52% 100%;
+  --beam-blur: 10px;
+  filter: blur(10px) brightness(var(--beam-brightness)) saturate(var(--beam-saturation));
+  opacity: calc(var(--beam-strength) * var(--beam-bloom-opacity) * 1.2);
+  animation:
+    arch-beam-line-pos var(--beam-duration, 3.1s) linear infinite,
+    arch-beam-hue 10s ease-in-out infinite;
+}
+
+.border-beam--sm,
+.border-beam-sm {
+  --beam-size: 2px;
+  --beam-duration: 1.96s;
+}
+
+.border-beam--md,
+.border-beam-md {
+  --beam-size: 2px;
+  --beam-duration: 2.2s;
+}
+
+.border-beam-quiet { --beam-strength: 0.55; --beam-saturation: 0.95; }
+.border-beam-present { --beam-strength: 0.85; }
+.border-beam-loud { --beam-strength: 1; --beam-saturation: 1.25; --beam-brightness: 1.4; }
+
+.border-beam--pulse,
+.border-beam-pulse,
+[data-border-beam="pulse-inner"] {
+  animation:
+    arch-beam-spin calc(var(--beam-duration) * 2.6) linear infinite,
     arch-beam-breathe 2.3s ease-in-out infinite;
 }
 
+.no-beam:not(nav, [role="navigation"], .arch-navbar) {
+  background-image: none;
+  animation: none;
+  border-color: var(--arch-outline, #ededed);
+}
+
+.no-beam:not(nav, [role="navigation"], .arch-navbar)::before,
 .no-beam:not(nav, [role="navigation"], .arch-navbar)::after,
+.no-beam:not(nav, [role="navigation"], .arch-navbar):focus-visible::before,
 .no-beam:not(nav, [role="navigation"], .arch-navbar):focus-visible::after,
+.no-beam:not(nav, [role="navigation"], .arch-navbar):focus-within::before,
 .no-beam:not(nav, [role="navigation"], .arch-navbar):focus-within::after {
   content: none !important;
   display: none !important;
@@ -142,33 +321,83 @@
 }
 
 @keyframes arch-beam-spin {
-  to { --beam-angle: 360deg; }
+  0% { --beam-angle: 0deg; }
+  100% { --beam-angle: 360deg; }
 }
 
-@keyframes arch-beam-line {
-  to { background-position: 200% 0; }
+@keyframes arch-beam-hue {
+  0%, 100% {
+    filter:
+      blur(var(--beam-blur, 0px))
+      hue-rotate(calc(var(--beam-hue-range) * -1))
+      brightness(var(--beam-brightness))
+      saturate(var(--beam-saturation));
+  }
+  50% {
+    filter:
+      blur(var(--beam-blur, 0px))
+      hue-rotate(var(--beam-hue-range))
+      brightness(var(--beam-brightness))
+      saturate(var(--beam-saturation));
+  }
+}
+
+@keyframes arch-beam-line-pos {
+  0% { background-position: -30% 50%; }
+  100% { background-position: 130% 50%; }
 }
 
 @keyframes arch-beam-breathe {
-  50% { opacity: calc(var(--beam-strength) * 0.45); }
+  50% { filter: brightness(calc(var(--beam-brightness) * 0.7)) saturate(var(--beam-saturation)); }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .border-beam,
+  [data-border-beam],
+  .border-beam-focus:focus-visible,
+  .border-beam-focus:focus-within,
+  button:not(.secondary, .contrast, .outline, .no-beam),
+  button.secondary:not(.outline, .no-beam),
   .border-beam::after,
+  .border-beam::before,
   [data-border-beam]::after,
-  [data-beam-placement="full-box"]::after,
-  .border-beam-bottom::after,
-  .border-beam-line::after,
-  [data-beam-placement="bottom-edge"]::after,
-  [data-border-beam="line"]::after,
-  .border-beam-pulse::after,
+  [data-border-beam]::before,
   .border-beam-focus:focus-visible::after,
+  .border-beam-focus:focus-visible::before,
   .border-beam-focus:focus-within::after,
-  :where(button, [type="submit"]):not(.secondary, .contrast, .outline, .no-beam)::after,
-  :where(button.secondary, [type="submit"].secondary):not(.outline, .no-beam)::after,
-  :where(nav, [role="navigation"], .arch-navbar)::after {
+  .border-beam-focus:focus-within::before,
+  button:not(.secondary, .contrast, .outline, .no-beam)::after,
+  button:not(.secondary, .contrast, .outline, .no-beam)::before,
+  button.secondary:not(.outline, .no-beam)::after,
+  button.secondary:not(.outline, .no-beam)::before,
+  .border-beam--bottom::after,
+  .border-beam--bottom::before,
+  .border-beam-bottom::after,
+  .border-beam-bottom::before,
+  .border-beam--line::after,
+  .border-beam--line::before,
+  nav::after,
+  nav::before,
+  [role="navigation"]::after,
+  [role="navigation"]::before,
+  .arch-navbar::after,
+  .arch-navbar::before {
     animation: none;
-    --beam-angle: 40deg;
-    opacity: calc(var(--beam-strength) * 0.7);
+    --beam-angle: 48deg;
+  }
+
+  .border-beam--bottom::after,
+  .border-beam--bottom::before,
+  .border-beam-bottom::after,
+  .border-beam-bottom::before,
+  .border-beam--line::after,
+  .border-beam--line::before,
+  nav::after,
+  nav::before,
+  [role="navigation"]::after,
+  [role="navigation"]::before,
+  .arch-navbar::after,
+  .arch-navbar::before {
+    background-position: 40% 50%;
   }
 }

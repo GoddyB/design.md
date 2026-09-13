@@ -1,20 +1,24 @@
 # Queued husk cards — do not answer yet
 
-Rapid-fire after `error` lands. Primary is locked **c** (void + beam); on-primary is locked **a** (`#ededed`). Each card is a/b/c. Column swatches; 3-wide with side-scroll, never stacked full-width.
+Rapid-fire after `on-error` lands. Primary **c**, on-primary **a**, error **`#eb1000`**. Each card is a/b/c. Column swatches; 3-wide with side-scroll, never stacked full-width.
 
 Contrast vs locked `{colors.surface}` `#000000` and `{colors.on-surface}` `#ededed`. AA = WCAG 4.5:1.
 
-Live current board: [error.md](./error.md) / [index.html](./index.html).
+Live current board: [index.html](./index.html) — **on-error** (ink on locked `#eb1000`). Error: [error.md](./error.md) (LOCKED).
 
 ---
 
-## 2. `error` — LIVE
+## 2. `error` — LOCKED `#eb1000`
 
-See [error.md](./error.md) / [index.html](./index.html). Do not answer the cards below until that lands.
+Do not reopen.
 
 ---
 
-## 3. `on-error` — text ON an error fill
+## 3. `on-error` — LIVE (ink on `#eb1000`)
+
+See [index.html](./index.html). Fill is locked Adobe red. Only the Delete ink changes.
+
+---
 
 ```
 [ Delete ]
