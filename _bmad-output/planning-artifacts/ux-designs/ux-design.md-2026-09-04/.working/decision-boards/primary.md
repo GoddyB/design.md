@@ -6,4 +6,4 @@ Do not reopen.
 
 Pico: `--pico-primary-background: #000000`. Links `--pico-primary: #ededed` (`{colors.on-surface}`).
 
-Next (after on-primary **a**): [`error.md`](./error.md).
+Locked after this: on-primary **a**, error **`#eb1000`**. Next: [`index.html`](./index.html) — `on-error`.

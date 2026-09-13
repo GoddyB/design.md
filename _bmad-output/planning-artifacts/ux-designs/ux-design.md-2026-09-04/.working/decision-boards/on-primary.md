@@ -6,4 +6,4 @@ Do not reopen.
 
 Pico: `--pico-primary-inverse` / `--arch-on-primary: #ededed`. Links already `#ededed`.
 
-Next: [`error.md`](./error.md).
+Locked after this: error **`#eb1000`**. Next: [`index.html`](./index.html) — `on-error`. Do not reopen.
