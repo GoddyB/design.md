@@ -13,13 +13,15 @@ Fill these. Geist blue/red/amber/green/teal/purple/pink ladders are **not** used
 | `secondary` | **omitted** | Ghost on surface. No second fill hue. |
 | `on-secondary` | **omitted** | Travels with `secondary`. Second-action look is chrome (light shade + thin beam), not a palette. |
 | `tertiary` | `#a1a1a1` | Rare emphasis. Distinct from ghost secondary. |
+| `primary` | `#000000` | Void fill + hairline / thin rainbow-glass beam. **Not a filled pill.** Do not reopen. Pico: `--pico-primary-background: #000`; links `--pico-primary: #ededed`. |
+| `on-primary` | `#ededed` | Ink on the void/beam Deploy. Same as `on-surface`. Pico `--pico-primary-inverse`. Do not reopen. |
 
 ## Pico map (locked)
 
-See `.working/pico-theme-map.md`. Theme file: `archanglic.pico.css`.
+See `.working/pico-theme-map.md`. Theme file: `archanglic.pico.css`. Beam recipe: `border-beam.css` (SSOT).
 
 ## Open (next dash)
 
-`primary`, `on-primary`, `error` (red), `on-error`, `on-tertiary`, `outline` (white or border-beam), `outline-variant` (white or border-beam), border-beam knobs (size / strength).
+`error` (red), `on-error`, `on-tertiary`, `outline` (white or border-beam), `outline-variant` (white or border-beam), border-beam knobs (size / strength).
 
-Board: `.working/decision-boards/` — start with `primary`. Pico `--pico-primary*` currently placeholders option a (`#ededed`) so default cyan cannot leak; **not locked**.
+Board: `.working/decision-boards/` — **error now**.

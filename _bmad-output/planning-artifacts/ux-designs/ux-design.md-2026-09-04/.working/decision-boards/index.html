@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Archanglic — husk primary</title>
+<title>Archanglic — husk error</title>
 <link rel="stylesheet" href="../archanglic/fonts.css">
 <link rel="stylesheet" href="../../archanglic.css">
 <link rel="stylesheet" href="../../archanglic.pico.css">
@@ -18,9 +18,15 @@
   }
   main { padding: 20px 16px 72px; max-width: none; }
   h1 { font-size: 16px; font-weight: 600; margin: 0 0 6px; }
-  h2 { font-size: 14px; font-weight: 600; margin: 28px 0 10px; }
   .lede, .hint, .meta { color: #a1a1a1; }
   .lede { max-width: 52em; margin: 0 0 20px; }
+  .locked {
+    max-width: 52em;
+    margin: 0 0 16px;
+    padding: 10px 12px;
+    border: 1px solid #2e2e2e;
+    font-size: 13px;
+  }
   code {
     font-family: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
     font-size: .92em;
@@ -46,7 +52,6 @@
     overflow-x: auto;
     padding-bottom: 8px;
   }
-  /* Never stack: side-scroll under 860px. Prior dash stacked and failed QA. */
   @media (max-width: 860px) {
     .board { grid-template-columns: repeat(3, minmax(240px, 1fr)); }
   }
@@ -56,34 +61,51 @@
     display: flex;
     flex-direction: column;
   }
-  .fat {
+  .stage {
     min-height: 220px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    padding: 12px;
-    font-family: "Geist Mono", ui-monospace, monospace;
-    font-size: 12px;
-  }
-  .fat b { font-size: 18px; }
-  .chrome {
-    padding: 14px 12px 12px;
+    align-items: stretch;
+    justify-content: center;
+    gap: 12px;
+    padding: 20px 16px;
     background: #000;
-    border-top: 1px solid #2e2e2e;
   }
-  .word { color: #ededed; font-weight: 600; margin: 0 0 10px; }
-  .pill {
-    display: inline-block;
-    padding: 6px 14px;
-    border-radius: 8px;
-    border: 1px solid transparent;
-    font-weight: 500;
-  }
-  .ghost {
-    background: transparent;
+  .word { color: #ededed; font-weight: 600; margin: 0; font-size: 13px; text-align: center; }
+  .field {
+    border: 1px solid #2e2e2e;
+    border-radius: 6px;
+    padding: 10px 12px;
     color: #ededed;
-    border-color: #ededed;
-    margin-left: 8px;
+    font-family: "Geist Mono", ui-monospace, monospace;
+    font-size: 13px;
+  }
+  .err {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.35;
+  }
+  .delete {
+    display: inline-block;
+    align-self: center;
+    padding: 14px 28px;
+    border-radius: 8px;
+    border: 1px solid #ba1a1a;
+    background: #ba1a1a;
+    color: #ededed;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1;
+  }
+  .inkbar {
+    height: 28px;
+    width: 100%;
+    font-family: "Geist Mono", ui-monospace, monospace;
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    box-sizing: border-box;
   }
   .meta { padding: 10px 12px 12px; font-size: 12px; }
   .meta b { color: #ededed; }
@@ -93,81 +115,69 @@
     color: #a1a1a1;
     font-size: 13px;
   }
-  .queued .fat { min-height: 96px; }
 </style>
 </head>
 <body>
 <main>
-  <h1>Archanglic — husk <code>primary</code></h1>
+  <h1>Archanglic — husk <code>error</code></h1>
+  <p class="locked">
+    <strong>Primary locked (c).</strong> Void fill <code>#000000</code> + hairline / thin beam.
+    <strong>on-primary locked</strong> <code>#ededed</code>. Do not reopen.
+  </p>
   <p class="lede">
-    Implementation: Pico CSS theme + vanilla <code>.border-beam</code>. Answer this slot only.
-    The <strong>fat column is the token</strong>. The word “Archanglic” is always
-    <code>#ededed</code> — it is not the pick. Columns do not stack; scroll sideways.
+    The <strong>invalid line</strong> (a, c) or the <strong>Delete fill</strong> (b) is the token.
+    The word “Archanglic” is always <code>#ededed</code>. Columns do not stack; scroll sideways.
+    Must be red somewhere. Not a Geist red ladder.
   </p>
 
-<pre class="ascii">+--------------------------------+
-| ^^                   About Work|
-| Archanglic                     |  &lt;- always #ededed (not the token)
-| [ Deploy ]    Read             |
-|  #########                     |
-|  &lt;- this FILL is primary       |
-+--------------------------------+</pre>
+<pre class="ascii">token name
+[________________]
+ ! This token does not resolve. You cannot ship it.
+   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   this color</pre>
 
-  <p class="hint">Paws: “Primary: Use for main actions, active states, and highlights.” Atmospheric Glass: “Primary buttons are solid white for maximum contrast.” SpaceX/LamaLama: “primary action: no distinct CTA color.”</p>
+  <p class="hint">a and c = line-on-void. b = filled pill. Pick the job, then the hex.</p>
 
   <div class="board" role="list">
     <article class="col" role="listitem" id="opt-a">
-      <div class="fat" style="background:#ededed;color:#000">
-        <span>a — THE TOKEN</span>
-        <b>#ededed</b>
-      </div>
-      <div class="chrome">
+      <div class="inkbar" style="background:#ffb4ab;color:#000">a — THE LINE &nbsp; #ffb4ab</div>
+      <div class="stage">
         <p class="word">Archanglic</p>
-        <span class="pill" style="background:#ededed;color:#000">Deploy</span>
-        <span class="pill ghost">Read</span>
+        <div class="field">colors.primary…</div>
+        <p class="err" style="color:#ffb4ab">This token does not resolve. You cannot ship it.</p>
       </div>
       <p class="meta">
-        <b>a)</b> inverted type-white. vs <code>#000</code> 17.94:1 AA. vs <code>#ededed</code> 1.00:1 (cannot be on-primary). Pico: <code>--pico-primary-background: #ededed</code>.
+        <b>a)</b> Atmospheric/Totality error text on black. vs <code>#000</code> 12.37:1 AA. Fails as a fill under type-white.
       </p>
     </article>
     <article class="col" role="listitem" id="opt-b">
-      <div class="fat" style="background:#8f8f8f;color:#000">
-        <span>b — THE TOKEN</span>
-        <b>#8f8f8f</b>
-      </div>
-      <div class="chrome">
+      <div class="inkbar" style="background:#ba1a1a;color:#ededed">b — THE FILL &nbsp; #ba1a1a</div>
+      <div class="stage">
         <p class="word">Archanglic</p>
-        <span class="pill" style="background:#8f8f8f;color:#000">Deploy</span>
-        <span class="pill ghost">Read</span>
+        <span class="delete">Delete</span>
+        <p class="err" style="color:#a1a1a1">Filled destructive. Ink on it is the next slot.</p>
       </div>
       <p class="meta">
-        <b>b)</b> metal pill (Geist gray-700, no new hue). vs <code>#000</code> 6.49:1 AA. vs <code>#ededed</code> 2.76:1 — obviously dimmer than a.
+        <b>b)</b> Paws filled Delete. vs <code>#ededed</code> 5.52:1 AA as fill. Fails as text-on-black (3.25:1).
       </p>
     </article>
     <article class="col" role="listitem" id="opt-c">
-      <div class="fat border-beam border-beam-sm border-beam-quiet" style="background:#000;color:#ededed;border:1px solid #ededed;box-sizing:border-box">
-        <span>c — THE TOKEN</span>
-        <b>#000000</b>
-      </div>
-      <div class="chrome">
+      <div class="inkbar" style="background:#c45c5c;color:#000">c — THE LINE &nbsp; #c45c5c</div>
+      <div class="stage">
         <p class="word">Archanglic</p>
-        <span class="pill border-beam border-beam-sm border-beam-quiet" style="background:#000;color:#ededed;border-color:#ededed">Deploy</span>
-        <span class="pill ghost">Read</span>
+        <div class="field">colors.primary…</div>
+        <p class="err" style="color:#c45c5c">This token does not resolve. You cannot ship it.</p>
       </div>
       <p class="meta">
-        <b>c)</b> void fill + hairline/beam. Pico can keep <code>--pico-primary</code> (links) at <code>#ededed</code> while <code>--pico-primary-background</code> is <code>#000</code>.
+        <b>c)</b> muted rust, still clearly red. vs <code>#000</code> 5.03:1 AA. Fails as a fill under type-white.
       </p>
     </article>
   </div>
 
   <p class="note">
-    Dropped <code>#ffffff</code> / alias-of-a: those were 1.17:1 apart and failed visual QA.
-    Placeholder in <code>archanglic.pico.css</code> is option a until you pick — not locked.
-    Reply: <code>primary: a</code> · <code>b</code> · <code>c</code> · or a write-in hex that is not a Geist accent ladder.
+    Reply: <code>error: a</code> · <code>b</code> · <code>c</code>. Pico invalid chrome stays gray until you pick.
+    Queued: <a href="./queued.md">queued.md</a>. Pico demo: <a href="../pico-theme-demo.html">pico-theme-demo.html</a>.
   </p>
-
-  <h2>Queued (do not answer yet)</h2>
-  <p class="hint">Cards: <a href="./queued.md">queued.md</a>. Pico demo: <a href="../pico-theme-demo.html">pico-theme-demo.html</a>.</p>
 </main>
 </body>
 </html>

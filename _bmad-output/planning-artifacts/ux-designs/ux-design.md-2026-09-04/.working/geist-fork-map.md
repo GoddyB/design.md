@@ -28,13 +28,13 @@ Geist dark HSL → hex (sRGB). Gray ladder in DESIGN.md is **100–900 only**. `
 
 `gray-alpha-100`–`900` (and 1000 if still needed for overlays) — translucent borders/overlays. Allowed CSS colors. `gray-alpha-1000` is not the text token.
 
-Accent scales (`blue`, `red`, `amber`, `green`, `teal`, `purple`, `pink`): **do not fork.** Goddy will fill husk slots (`primary`, `error`, optional `secondary`/`tertiary`) with his own options. See `.working/color-husk-slots.md`.
+Accent scales (`blue`, `red`, `amber`, `green`, `teal`, `purple`, `pink`): **do not fork.** Goddy fills husk slots with his own options. See `.working/color-husk-slots.md`.
 
-**Husk mapping:** `#ededed` is `{colors.on-surface}` (text white), not `{colors.primary}` and not `gray-1000`. `{colors.primary}` is still open (brand/CTA fill). `{colors.surface}` / canvas = `#000000`.
+**Husk mapping:** `#ededed` is `{colors.on-surface}` (text white), not `{colors.primary}` and not `gray-1000`. `{colors.primary}` is locked void `#000000` + beam. `{colors.on-primary}` is locked `#ededed`. `{colors.surface}` / canvas = `#000000`.
 
 **Canvas:** `{colors.surface}` = `{colors.background-200}` = `#000000`. Default elements use the same. `{colors.background-100}` (`#0a0a0a`) only when an alternate is specified, rarely. `#ededed` on `#0a0a0a` is **not** a preset.
 
-**Archanglic delta (not Geist):** muted pastel-rainbow-glass on accents, shimmers, active shading, and some chrome borders. Does not replace the gray-400/500/600 border ladder; it is the splash. Vanilla CSS `.border-beam` in `archanglic.pico.css` — not the React package.
+**Archanglic delta (not Geist):** muted pastel-rainbow-glass on accents, shimmers, active shading, and some chrome borders. Does not replace the gray-400/500/600 border ladder; it is the splash. Vanilla CSS in `border-beam.css` (SSOT) — not the React package, not a copy inside `archanglic.pico.css`.
 
 ### Typography (`typography`)
 

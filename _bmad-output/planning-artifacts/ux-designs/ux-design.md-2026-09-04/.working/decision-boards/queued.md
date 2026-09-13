@@ -1,52 +1,16 @@
 # Queued husk cards — do not answer yet
 
-Rapid-fire after `primary` lands. Each card is a/b/c. Open [index.html](./index.html) and scroll past the primary hero. Column swatches; 3-wide with side-scroll, never stacked full-width.
+Rapid-fire after `error` lands. Primary and on-primary are locked (void + beam; ink `#ededed`). Each card is a/b/c. Column swatches; 3-wide with side-scroll, never stacked full-width.
 
 Contrast vs locked `{colors.surface}` `#000000` and `{colors.on-surface}` `#ededed`. AA = WCAG 4.5:1.
 
----
-
-## 1. `on-primary` — INK on the primary fill
-
-```
-[ Deploy ]
-  ^^^^^^
-  this label
-```
-
-Quality-bar: every fill hue gets a contrasting on-color.
-
-Depends on `primary`. If primary is **c** (`#000000`), skip this card — ink is `{colors.on-surface}`.
-
-| | Hex | vs `#ededed` (if primary is a) | vs `#8f8f8f` (if primary is b) | vs `#000000` |
-|---|---|---|---|---|
-| **a** | `#000000` | 17.94:1 AA | 6.49:1 AA | 1.00:1 |
-| **b** | `#1a1a1a` (`gray-100`) | 14.87:1 AA | 5.38:1 AA | 1.18:1 |
-| **c** | `#0a0a0a` (rare black) | 16.91:1 AA | 6.12:1 AA | 1.07:1 |
-
-These three are close on purpose (ink-on-light). Look at the **zoomed Deploy label on the light pill**, not the page. If they still read identical, pick **a**.
+Live current board: [error.md](./error.md) / [index.html](./index.html).
 
 ---
 
-## 2. `error` — invalid / destructive (red somewhere)
+## 2. `error` — LIVE
 
-```
-token name
-[________________]
- ! This token does not resolve. You cannot ship it.
-   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   this color
-```
-
-Paws: error is its own palette, never primary recycled as “angry.” Goddy: errors need red. Not a Geist red ladder — these hexes are from official examples + a muted rust.
-
-| | Hex | Role | vs `#000` | vs `#ededed` |
-|---|---|---|---|---|
-| **a** | `#ffb4ab` | Atmospheric/Totality dark-theme error — **text on black** | 12.37:1 AA | 1.45:1 fail as fill under type-white |
-| **b** | `#ba1a1a` | Paws error — **filled Delete** | 3.25:1 fail as text-on-black | 5.52:1 AA as fill under type-white |
-| **c** | `#c45c5c` | muted rust, still clearly red — **text on black** | 5.03:1 AA | 3.56:1 fail as fill under type-white |
-
-a and c are line-on-void. b is a pill. Pick the job, then the hex.
+See [error.md](./error.md) / [index.html](./index.html). Do not answer the cards below until that lands.
 
 ---
 
@@ -127,7 +91,7 @@ this rule
 
 ## 7. border-beam `size` — when the bag opens
 
-Not a husk color. Vanilla classes in [`.working/border-beam-vanilla.css`](../border-beam-vanilla.css). Stock `md` orbit is a 3-second signature — personality said not a medal.
+Not a husk color. Vanilla classes in [`border-beam.css`](../../border-beam.css). Stock `md` orbit is a 3-second signature — personality said not a medal.
 
 | | Class / analogue |
 |---|---|

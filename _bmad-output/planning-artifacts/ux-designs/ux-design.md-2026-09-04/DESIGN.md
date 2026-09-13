@@ -4,7 +4,8 @@ status: draft
 updated: 2026-09-13
 stylesheet: ./archanglic.css
 pico_theme: ./archanglic.pico.css
-description: Shared dark visual identity for Goddy Bush and Archangl Dev Ltd. One appearance. Husk primary still open.
+border_beam: ./border-beam.css
+description: Shared dark visual identity for Goddy Bush and Archangl Dev Ltd. One appearance. Husk error still open.
 omitted:
   - section: typography
     reason: Dedicated phase after Colors. Live-site typeface is a candidate to show, not locked. Palette-page ui-sans-serif/system-ui is not the identity.
@@ -31,15 +32,17 @@ colors:
   gray-800: '#7d7d7d'
   gray-900: '#a1a1a1'
   tertiary: '#a1a1a1'
+  primary: '#000000'
+  on-primary: '#ededed'
 ---
 
 # Archanglic
 
 Snippet and tree painting live in [`archanglic.css`](./archanglic.css). This file points there for that contract and does not duplicate it.
 
-**Implementation target:** a [Pico CSS](https://picocss.com/) v2 custom theme (classless or classed) plus vanilla rainbow-glass. Load Pico, then [`archanglic.pico.css`](./archanglic.pico.css). One dark appearance (`data-theme="dark"`; Pico light is collapsed into the void). Mapping: [`.working/pico-theme-map.md`](.working/pico-theme-map.md). Goddy does not use React; do not implement chrome with the npm `border-beam` package.
+**Implementation target:** a [Pico CSS](https://picocss.com/) v2 custom theme (classless or classed) plus vanilla rainbow-glass. Load Pico, then [`archanglic.pico.css`](./archanglic.pico.css) (which `@import`s [`border-beam.css`](./border-beam.css) — the only beam recipe). One dark appearance (`data-theme="dark"`; Pico light is collapsed into the void). Mapping: [`.working/pico-theme-map.md`](.working/pico-theme-map.md). Goddy does not use React; do not implement chrome with the npm `border-beam` package.
 
-Husk `primary` is **TODO** — answer a/b/c in [`RESUME.md`](./RESUME.md). Spec-perfect requires `primary` once `colors` exists; this draft is incomplete on purpose until that pick lands. `archanglic.pico.css` uses `#ededed` as a **placeholder** for `--pico-primary*` only so Pico’s default cyan `#01aaff` cannot leak. That placeholder is not a lock. Do not treat any Geist accent ladder as a stand-in.
+Husk `primary` is **locked**: void fill `{colors.primary}` (`#000000`) plus hairline / thin rainbow-glass beam. Not a filled pill. Pico split: `--pico-primary-background` is the void; `--pico-primary` (links) stays `{colors.on-surface}` (`#ededed`). Husk `on-primary` is **locked** `{colors.on-primary}` (`#ededed`) — same voice as page text. Next slot is `error` — [`.working/decision-boards/`](.working/decision-boards/). Do not treat any Geist accent ladder as a stand-in.
 
 ## Brand & Style
 
@@ -98,7 +101,9 @@ Geist gray / canvas tokens fork. Geist **blue / red / amber / green / teal / pur
 ### Locked palettes
 
 - **Void (`surface`, `background`, `background-200`, `#000000`).** Primary background. Always used unless an alternate is specified. Default element fill is this, not Geist’s `#0a0a0a`.
-- **Voice (`on-surface`, `on-background`, `#ededed`).** The white used for text. Default type preset: `{colors.on-surface}` on `{colors.surface}`. Not a gray step. Not husk `primary`.
+- **Voice (`on-surface`, `on-background`, `#ededed`).** The white used for text. Default type preset: `{colors.on-surface}` on `{colors.surface}`. Not a gray step.
+- **Primary (`#000000`).** Void fill of the main action. Not wallpaper. Not a pill. The control is hairline `{colors.outline}` (TODO, placeholder white) plus thin `.border-beam`. Pico: `--pico-primary-background: #000000`; links `--pico-primary: #ededed`.
+- **On-primary (`#ededed`).** Ink on the void/beam Deploy. Same voice as `{colors.on-surface}`. Pico `--pico-primary-inverse`.
 - **Rare fill (`background-100`, `#0a0a0a`).** Alternate surface only, used rarely. `#ededed` on `#0a0a0a` is **not** a type preset.
 - **Gray ladder (`gray-100`–`gray-900`).** Geist neutrals for component fill / hover / borders / secondary text. Roles stand until overridden. `{colors.gray-400}` (`#2e2e2e`) is the default hairline in the ladder; husk `outline` may still replace that for chrome (TODO).
 - **Tertiary (`#a1a1a1`).** Rare emphasis badge. Same hex as `{colors.gray-900}`; the slot exists so a badge is not a ghost second-action. Must stay distinct from omitted secondary.
@@ -106,13 +111,11 @@ Geist gray / canvas tokens fork. Geist **blue / red / amber / green / teal / pur
 
 ### Open husk slots (TODO)
 
-Resolve one at a time. Board: [`.working/decision-boards/`](.working/decision-boards/).
+Resolve one at a time. Board: [`.working/decision-boards/`](.working/decision-boards/). Do not reopen `{colors.primary}` or `{colors.on-primary}`.
 
 | Slot | Status |
 |---|---|
-| `primary` | **TODO — answer now.** Fill of the main action. Not page text. See [`RESUME.md`](./RESUME.md). |
-| `on-primary` | TODO after `primary` |
-| `error` | TODO. Must be red somewhere. Not a Geist red ladder. |
+| `error` | **TODO — answer now.** Must be red somewhere. Not a Geist red ladder. See [`RESUME.md`](./RESUME.md). |
 | `on-error` | TODO after `error` |
 | `on-tertiary` | TODO. Ink on `{colors.tertiary}`. Distinct from ghost secondary. |
 | `outline` | TODO. White or border-beam — not the gray hairline options already rejected. |
@@ -124,7 +127,9 @@ Resolve one at a time. Board: [`.working/decision-boards/`](.working/decision-bo
 
 Muted pastel chromatic seam on accents, shimmers, active shading, and some chrome borders. Optional, in the bag. Does **not** replace `{colors.gray-400}` / `500` / `600` and does **not** fill surfaces.
 
-Implementation: vanilla CSS `.border-beam` in [`archanglic.pico.css`](./archanglic.pico.css) (also [`.working/border-beam-vanilla.css`](.working/border-beam-vanilla.css)). Knobs: `--beam-size`, `--beam-strength`. The React `border-beam` library is the analogue that named the effect — not a dependency. Size/strength knobs are TODO.
+Implementation: **one file** — [`border-beam.css`](./border-beam.css). `archanglic.pico.css` `@import`s it. [`.working/border-beam-vanilla.css`](.working/border-beam-vanilla.css) re-exports it. Do **not** copy `@keyframes`, `@property --beam-angle`, or the conic-gradient recipe into nav CSS, the Pico theme, or demos.
+
+Opt-in / adapt via classes or knobs: `.border-beam` (full-box), `.border-beam-bottom` / `data-beam-placement="bottom-edge"` (navbar), `.border-beam-focus` (focus rings), `--beam-size`, `--beam-strength`, `--beam-duration`, `--beam-placement`. Pico wires primary Deploy, `nav` bottoms, and `button.secondary` chrome to that same recipe (opt out with `.no-beam`). The React `border-beam` library is the analogue that named the effect — not a dependency. Size/strength knobs are TODO.
 
 Honor `prefers-reduced-motion`. Do not band the fade. Do not treat stock `strength: 1` orbit as the signature — that is a 3-second medal.
 
@@ -150,6 +155,7 @@ Text-on-fill ≥ 4.5:1 WCAG AA. Hover / active / focus increase contrast vs rest
 - Don’t put Needle or jokes in product chrome.
 - Don’t use `{colors.tertiary}` as a second-action fill — secondary is omitted (ghost).
 - Don’t restyle snippets/trees here; change `archanglic.css`.
-- Don’t invent `{colors.primary}` — it is a Goddy pick, not a coach fill-in.
+- Don’t fill `{colors.primary}` as a light pill — it is void + hairline / thin beam.
 - Don’t leave Pico’s default cyan `--pico-primary: #01aaff` in a shipped theme.
 - Don’t implement rainbow-glass with the React `border-beam` package.
+- Don’t duplicate the beam recipe; edit [`border-beam.css`](./border-beam.css) only.

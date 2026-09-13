@@ -1,0 +1,9 @@
+# Husk `on-primary` — LOCKED
+
+Do not reopen.
+
+**`#ededed`** — same voice as `{colors.on-surface}`. Ink on the void/beam Deploy. Not a hotter `#ffffff`, not muted tertiary.
+
+Pico: `--pico-primary-inverse` / `--arch-on-primary: #ededed`. Links already `#ededed`.
+
+Next: [`error.md`](./error.md).

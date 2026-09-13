@@ -1,0 +1,173 @@
+/* Archanglic rainbow-glass — SINGLE SOURCE OF TRUTH.
+ *
+ * Load this file once. Do not copy @property, @keyframes, or gradient
+ * recipes into archanglic.pico.css, nav CSS, or demos.
+ *
+ * Opt-in:
+ *   class="border-beam"                         full-box (--beam-placement: full-box)
+ *   class="border-beam-bottom"                  bottom-edge (navbar)
+ *   class="border-beam-line"                    alias of bottom-edge
+ *   data-beam-placement="full-box|bottom-edge"  same as the classes
+ *   class="border-beam-focus"                   full-box while :focus-visible or :focus-within
+ *                                               (wrap <input> — replaced elements cannot paint ::after)
+ *   class="no-beam"                             opt out (Pico surfaces wired below)
+ *
+ * Knobs (override on the element):
+ *   --beam-size  --beam-strength  --beam-duration  --beam-saturation
+ *   --beam-placement  (set by classes / Pico aliases; do not fork the recipe)
+ *
+ * Pico aliases (same recipe, so a tweak here updates every surface):
+ *   primary button / [type=submit]              full-box
+ *   nav                                         bottom-edge
+ *   button.secondary (not .outline)             full-box, quieter knobs from the theme
+ *
+ * Fill stays the element's own background. No React.
+ */
+:root {
+  --beam-size: 1px;
+  --beam-strength: 0.45;
+  --beam-duration: 4s;
+  --beam-saturation: 0.65;
+  --beam-placement: full-box;
+  --beam-stops:
+    rgb(255, 50, 100),
+    rgb(255, 170, 40),
+    rgb(50, 200, 100),
+    rgb(40, 140, 255),
+    rgb(200, 50, 240),
+    rgb(255, 50, 100);
+}
+
+@property --beam-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.border-beam,
+[data-border-beam],
+[data-beam-placement="full-box"],
+.border-beam-bottom,
+.border-beam-line,
+[data-beam-placement="bottom-edge"],
+[data-border-beam="line"],
+.border-beam-focus:focus-visible,
+.border-beam-focus:focus-within,
+:where(button, [type="submit"]):not(.secondary, .contrast, .outline, .no-beam),
+:where(button.secondary, [type="submit"].secondary):not(.outline, .no-beam),
+:where(nav):not(.no-beam) {
+  position: relative;
+  isolation: isolate;
+  --beam-placement: full-box;
+}
+
+.border-beam-bottom,
+.border-beam-line,
+[data-beam-placement="bottom-edge"],
+[data-border-beam="line"],
+:where(nav):not(.no-beam) {
+  --beam-placement: bottom-edge;
+}
+
+.border-beam::after,
+[data-border-beam]::after,
+[data-beam-placement="full-box"]::after,
+.border-beam-bottom::after,
+.border-beam-line::after,
+[data-beam-placement="bottom-edge"]::after,
+[data-border-beam="line"]::after,
+.border-beam-focus:focus-visible::after,
+.border-beam-focus:focus-within::after,
+:where(button, [type="submit"]):not(.secondary, .contrast, .outline, .no-beam)::after,
+:where(button.secondary, [type="submit"].secondary):not(.outline, .no-beam)::after,
+:where(nav):not(.no-beam)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  padding: var(--beam-size);
+  pointer-events: none;
+  box-sizing: border-box;
+  background: conic-gradient(from var(--beam-angle), var(--beam-stops));
+  filter: saturate(var(--beam-saturation)) brightness(1.08);
+  opacity: var(--beam-strength);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: arch-beam-spin var(--beam-duration) linear infinite;
+}
+
+.border-beam-bottom::after,
+.border-beam-line::after,
+[data-beam-placement="bottom-edge"]::after,
+[data-border-beam="line"]::after,
+:where(nav):not(.no-beam)::after {
+  inset: auto 0 0 0;
+  height: max(2px, var(--beam-size));
+  padding: 0;
+  border-radius: 0;
+  -webkit-mask: none;
+  mask: none;
+  background: linear-gradient(90deg, var(--beam-stops));
+  background-size: 200% 100%;
+  animation: arch-beam-line var(--beam-duration) linear infinite;
+}
+
+.border-beam-sm { --beam-size: 1px; --beam-duration: 3.2s; }
+.border-beam-md { --beam-size: 2px; --beam-duration: 2s; }
+.border-beam-quiet { --beam-strength: 0.35; --beam-saturation: 0.55; }
+.border-beam-present { --beam-strength: 0.55; --beam-saturation: 0.75; }
+.border-beam-loud { --beam-strength: 1; --beam-saturation: 1.2; }
+
+.border-beam-pulse::after,
+[data-border-beam="pulse-inner"]::after {
+  animation:
+    arch-beam-spin calc(var(--beam-duration) * 2.4) linear infinite,
+    arch-beam-breathe 2.3s ease-in-out infinite;
+}
+
+.no-beam::after,
+.no-beam:focus-visible::after,
+.no-beam:focus-within::after {
+  content: none !important;
+  display: none !important;
+  animation: none !important;
+}
+
+@keyframes arch-beam-spin {
+  to { --beam-angle: 360deg; }
+}
+
+@keyframes arch-beam-line {
+  to { background-position: 200% 0; }
+}
+
+@keyframes arch-beam-breathe {
+  50% { opacity: calc(var(--beam-strength) * 0.45); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .border-beam::after,
+  [data-border-beam]::after,
+  [data-beam-placement="full-box"]::after,
+  .border-beam-bottom::after,
+  .border-beam-line::after,
+  [data-beam-placement="bottom-edge"]::after,
+  [data-border-beam="line"]::after,
+  .border-beam-pulse::after,
+  .border-beam-focus:focus-visible::after,
+  .border-beam-focus:focus-within::after,
+  :where(button, [type="submit"]):not(.secondary, .contrast, .outline, .no-beam)::after,
+  :where(button.secondary, [type="submit"].secondary):not(.outline, .no-beam)::after,
+  :where(nav):not(.no-beam)::after {
+    animation: none;
+    --beam-angle: 40deg;
+    opacity: calc(var(--beam-strength) * 0.7);
+  }
+}
