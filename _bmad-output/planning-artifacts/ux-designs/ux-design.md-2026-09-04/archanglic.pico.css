@@ -1,0 +1,264 @@
+/* Archanglic — Pico CSS theme sketch (dark only).
+ *
+ * Load AFTER Pico (classless or classed):
+ *   <link rel="stylesheet" href="pico.min.css">
+ *   <link rel="stylesheet" href="archanglic.pico.css">
+ *   <html data-theme="dark">
+ *
+ * Tokens: DESIGN.md colors + archanglic.css snippet/tree.
+ * Husk primary is locked (c): void fill #000 + hairline / thin beam.
+ * Pico split: --pico-primary (links) = #ededed; --pico-primary-background = #000.
+ * on-primary is locked (a) #ededed. error is locked #eb1000. on-error remains TODO.
+ *
+ * Rainbow-glass: @import ./border-beam.css (the only recipe).
+ * Navbar bottoms are required (nav, [role=navigation], .arch-navbar) — not a gray hairline.
+ * This file may set --beam-* knobs. Do not copy @property, @keyframes, or gradients here. Not React.
+ */
+@import url("./border-beam.css");
+
+:root {
+  --arch-surface: #000000;
+  --arch-on-surface: #ededed;
+  --arch-background-200: #000000;
+  --arch-background-100: #0a0a0a;
+  --arch-gray-100: #1a1a1a;
+  --arch-gray-200: #1f1f1f;
+  --arch-gray-300: #292929;
+  --arch-gray-400: #2e2e2e;
+  --arch-gray-500: #454545;
+  --arch-gray-600: #878787;
+  --arch-gray-700: #8f8f8f;
+  --arch-gray-800: #7d7d7d;
+  --arch-gray-900: #a1a1a1;
+  --arch-tertiary: #a1a1a1;
+
+  /* Locked (c): husk primary = void fill. Pico split: links stay on-surface. */
+  --arch-primary: #000000;
+  --arch-primary-link: #ededed;
+  /* Locked (a): ink on the void/beam Deploy. Same voice as on-surface. */
+  --arch-on-primary: #ededed;
+  /* Locked: husk error = Adobe red write-in on the c job. Not a Geist ladder. */
+  --arch-error: #eb1000;
+  --arch-on-error: var(--arch-on-surface);
+  /* TODO — Goddy on-tertiary a/b/c. */
+  --arch-on-tertiary: #000000;
+  /* TODO — outline is white or beam, not gray-400. Placeholder hairline until pick. */
+  --arch-outline: var(--arch-on-surface);
+}
+
+/* One appearance. Collapse Pico light into the void so data-theme="light" cannot leak. */
+:root,
+:host,
+[data-theme="dark"],
+[data-theme="light"],
+:root:not([data-theme="dark"]),
+:host(:not([data-theme="dark"])) {
+  color-scheme: dark;
+
+  --pico-background-color: var(--arch-surface);
+  --pico-color: var(--arch-on-surface);
+  --pico-text-selection-color: color-mix(in srgb, var(--arch-on-surface) 22%, transparent);
+  --pico-muted-color: var(--arch-tertiary);
+  --pico-muted-border-color: var(--arch-gray-400);
+
+  --pico-primary: var(--arch-primary-link);
+  --pico-primary-background: var(--arch-primary);
+  --pico-primary-border: var(--arch-outline);
+  --pico-primary-underline: color-mix(in srgb, var(--arch-primary-link) 50%, transparent);
+  --pico-primary-hover: var(--arch-on-surface);
+  --pico-primary-hover-background: var(--arch-primary);
+  --pico-primary-hover-border: var(--arch-on-surface);
+  --pico-primary-hover-underline: var(--pico-primary-hover);
+  --pico-primary-focus: color-mix(in srgb, var(--arch-primary-link) 40%, transparent);
+  --pico-primary-inverse: var(--arch-on-primary);
+
+  /* Secondary omitted as a fill hue. Light shade (gray-100) + thin beam is chrome, not a palette. */
+  --pico-secondary: var(--arch-on-surface);
+  --pico-secondary-background: var(--arch-gray-100);
+  --pico-secondary-border: var(--arch-outline);
+  --pico-secondary-underline: color-mix(in srgb, var(--arch-on-surface) 50%, transparent);
+  --pico-secondary-hover: var(--arch-on-surface);
+  --pico-secondary-hover-background: var(--arch-gray-100);
+  --pico-secondary-hover-border: var(--arch-outline);
+  --pico-secondary-hover-underline: var(--pico-secondary-hover);
+  --pico-secondary-focus: color-mix(in srgb, var(--arch-on-surface) 25%, transparent);
+  --pico-secondary-inverse: var(--arch-on-surface);
+
+  --pico-contrast: var(--arch-on-surface);
+  --pico-contrast-background: var(--arch-on-surface);
+  --pico-contrast-border: var(--arch-on-surface);
+  --pico-contrast-underline: color-mix(in srgb, var(--arch-on-surface) 50%, transparent);
+  --pico-contrast-hover: #ffffff;
+  --pico-contrast-hover-background: #ffffff;
+  --pico-contrast-hover-border: #ffffff;
+  --pico-contrast-hover-underline: var(--pico-contrast-hover);
+  --pico-contrast-focus: color-mix(in srgb, var(--arch-on-surface) 25%, transparent);
+  --pico-contrast-inverse: var(--arch-surface);
+
+  --pico-box-shadow: none;
+  --pico-h1-color: var(--arch-on-surface);
+  --pico-h2-color: var(--arch-on-surface);
+  --pico-h3-color: var(--arch-on-surface);
+  --pico-h4-color: var(--arch-on-surface);
+  --pico-h5-color: var(--arch-on-surface);
+  --pico-h6-color: var(--arch-tertiary);
+  --pico-mark-background-color: var(--arch-tertiary);
+  --pico-mark-color: var(--arch-on-tertiary);
+  --pico-ins-color: var(--arch-on-surface);
+  --pico-del-color: var(--arch-error);
+  --pico-blockquote-border-color: var(--arch-outline);
+  --pico-blockquote-footer-color: var(--arch-tertiary);
+  --pico-button-box-shadow: none;
+  --pico-button-hover-box-shadow: none;
+  --pico-table-border-color: var(--arch-gray-400);
+  --pico-table-row-stripped-background-color: var(--arch-background-100);
+  --pico-code-background-color: var(--arch-surface);
+  --pico-code-color: var(--arch-on-surface);
+  --pico-code-kbd-background-color: var(--arch-on-surface);
+  --pico-code-kbd-color: var(--arch-surface);
+  --pico-form-element-background-color: var(--arch-surface);
+  --pico-form-element-selected-background-color: var(--arch-gray-200);
+  --pico-form-element-border-color: var(--arch-gray-400);
+  --pico-form-element-color: var(--arch-on-surface);
+  --pico-form-element-placeholder-color: var(--arch-tertiary);
+  --pico-form-element-active-background-color: var(--arch-surface);
+  --pico-form-element-active-border-color: var(--arch-outline);
+  --pico-form-element-focus-color: var(--arch-outline);
+  --pico-form-element-disabled-opacity: 0.5;
+  --pico-form-element-invalid-border-color: var(--arch-error);
+  --pico-form-element-invalid-active-border-color: var(--arch-error);
+  --pico-form-element-invalid-focus-color: var(--arch-error);
+  --pico-form-element-valid-border-color: var(--arch-gray-600);
+  --pico-form-element-valid-active-border-color: var(--arch-gray-600);
+  --pico-form-element-valid-focus-color: var(--arch-gray-600);
+  --pico-switch-background-color: var(--arch-gray-400);
+  --pico-switch-checked-background-color: var(--arch-primary-link);
+  --pico-switch-color: var(--arch-surface);
+  --pico-switch-thumb-box-shadow: none;
+  --pico-range-border-color: var(--arch-gray-400);
+  --pico-range-active-border-color: var(--arch-gray-500);
+  --pico-range-thumb-border-color: var(--arch-surface);
+  --pico-range-thumb-color: var(--arch-gray-600);
+  --pico-range-thumb-active-color: var(--arch-primary-link);
+  --pico-accordion-border-color: var(--arch-gray-400);
+  --pico-accordion-active-summary-color: var(--arch-on-surface);
+  --pico-accordion-close-summary-color: var(--arch-on-surface);
+  --pico-accordion-open-summary-color: var(--arch-tertiary);
+  --pico-card-background-color: var(--arch-surface);
+  --pico-card-border-color: var(--arch-gray-400);
+  --pico-card-box-shadow: none;
+  --pico-card-sectioning-background-color: var(--arch-background-100);
+  --pico-dropdown-background-color: var(--arch-surface);
+  --pico-dropdown-border-color: var(--arch-gray-400);
+  --pico-dropdown-box-shadow: none;
+  --pico-dropdown-color: var(--arch-on-surface);
+  --pico-dropdown-hover-background-color: var(--arch-gray-100);
+  --pico-loading-spinner-opacity: 0.5;
+  --pico-modal-overlay-background-color: color-mix(in srgb, var(--arch-surface) 80%, transparent);
+  --pico-progress-background-color: var(--arch-gray-400);
+  --pico-progress-color: var(--arch-primary-link);
+  --pico-tooltip-background-color: var(--arch-on-surface);
+  --pico-tooltip-color: var(--arch-surface);
+  --pico-icon-valid: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23a1a1a1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+  --pico-icon-invalid: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23eb1000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'%3E%3C/circle%3E%3Cline x1='12' y1='8' x2='12' y2='12'%3E%3C/line%3E%3Cline x1='12' y1='16' x2='12.01' y2='16'%3E%3C/line%3E%3C/svg%3E");
+}
+
+html,
+body {
+  background-color: var(--arch-surface);
+  color: var(--arch-on-surface);
+}
+
+/* Primary CTA: void fill + beam edge. Beam comes from border-beam.css (full-box). Not a pill. */
+button:not(.secondary, .contrast, .outline),
+[type="submit"]:not(.secondary, .contrast, .outline),
+[type="button"]:not(.secondary, .contrast, .outline),
+[role="button"]:not(.secondary, .contrast, .outline) {
+  background-color: var(--arch-primary);
+  color: var(--arch-on-primary);
+  border-color: transparent;
+}
+
+button:not(.secondary, .contrast, .outline):hover,
+[type="submit"]:not(.secondary, .contrast, .outline):hover,
+[type="button"]:not(.secondary, .contrast, .outline):hover,
+[role="button"]:not(.secondary, .contrast, .outline):hover {
+  background-color: var(--arch-primary);
+  color: var(--arch-on-primary);
+  border-color: transparent;
+}
+
+button.outline.secondary,
+[type="submit"].outline.secondary,
+[type="button"].outline.secondary,
+[role="button"].outline.secondary {
+  background-color: transparent;
+}
+
+/* Beam adapters — knobs only. Recipe is border-beam.css. */
+button:not(.secondary, .contrast, .outline, .no-beam),
+[type="submit"]:not(.secondary, .contrast, .outline, .no-beam) {
+  --beam-size: 2px;
+  --beam-strength: 1;
+  --beam-duration: 1.96s;
+  --beam-radius: var(--pico-border-radius);
+  --beam-fill: var(--arch-primary);
+  --beam-placement: full-box;
+  overflow: visible;
+}
+
+button.secondary:not(.outline, .no-beam),
+[type="submit"].secondary:not(.outline, .no-beam) {
+  --beam-size: 2px;
+  --beam-strength: 0.85;
+  --beam-saturation: 1.08;
+  --beam-duration: 2.2s;
+  --beam-radius: var(--pico-border-radius);
+  --beam-fill: var(--arch-gray-100);
+  --beam-placement: full-box;
+}
+
+/* Theme rule: every navbar bottom is the shared beam, never a gray hairline.
+ * Recipe stays in border-beam.css. Knobs only. */
+nav,
+[role="navigation"],
+.arch-navbar {
+  --beam-size: 3px;
+  --beam-strength: 1;
+  --beam-saturation: 1.2;
+  --beam-brightness: 1.35;
+  --beam-duration: 3.1s;
+  --beam-placement: bottom-edge;
+  overflow: visible;
+  border-bottom: none;
+}
+
+.arch-navbar:not(nav) {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+}
+
+.border-beam-focus:focus-visible,
+.border-beam-focus:focus-within {
+  --beam-size: 2px;
+  --beam-strength: 1;
+  --beam-saturation: 1.05;
+  --beam-fill: var(--arch-surface);
+  --beam-placement: full-box;
+}
+
+label .border-beam-focus {
+  display: block;
+  padding: var(--beam-size, 2px);
+  border-radius: var(--pico-border-radius);
+}
+
+.border-beam-focus:focus-within input,
+.border-beam-focus:focus-within textarea,
+.border-beam-focus:focus-within select {
+  box-shadow: none;
+  outline: none;
+}

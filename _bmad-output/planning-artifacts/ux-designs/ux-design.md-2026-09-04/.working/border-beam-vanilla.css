@@ -1,0 +1,4 @@
+/* Re-export only. The recipe lives in ../border-beam.css.
+ * Do not put @property, @keyframes, or gradient stops here.
+ */
+@import url("../border-beam.css");

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Archanglic — husk on-error</title>
+<link rel="stylesheet" href="../archanglic/fonts.css">
+<link rel="stylesheet" href="../../archanglic.css">
+<link rel="stylesheet" href="../../archanglic.pico.css">
+<style>
+  html, body {
+    margin: 0;
+    background: #000;
+    color: #ededed;
+    font-family: "Geist Sans", ui-sans-serif, system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+  main { padding: 20px 16px 72px; max-width: none; }
+  h1 { font-size: 16px; font-weight: 600; margin: 0 0 6px; }
+  .lede, .hint, .meta { color: #a1a1a1; }
+  .lede { max-width: 52em; margin: 0 0 20px; }
+  .locked {
+    max-width: 52em;
+    margin: 0 0 16px;
+    padding: 10px 12px;
+    border: 1px solid #2e2e2e;
+    font-size: 13px;
+  }
+  code {
+    font-family: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: .92em;
+    padding: .12em .38em;
+    border: 1px solid #2e2e2e;
+    border-radius: 6px;
+  }
+  pre.ascii {
+    margin: 12px 0;
+    padding: 12px;
+    border: 1px solid #2e2e2e;
+    border-radius: 8px;
+    font-family: "Geist Mono", ui-monospace, monospace;
+    font-size: 12px;
+    line-height: 1.4;
+    overflow-x: auto;
+    background: #000;
+  }
+  .board {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(240px, 1fr));
+    gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+  }
+  @media (max-width: 860px) {
+    .board { grid-template-columns: repeat(3, minmax(240px, 1fr)); }
+  }
+  .col {
+    min-width: 240px;
+    border: 1px solid #2e2e2e;
+    display: flex;
+    flex-direction: column;
+  }
+  .stage {
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 20px 12px;
+    background: #000;
+  }
+  .word { color: #ededed; font-weight: 600; margin: 0; font-size: 13px; }
+  .delete {
+    display: inline-block;
+    padding: 14px 28px;
+    border-radius: 8px;
+    border: 1px solid #eb1000;
+    background: #eb1000;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1;
+  }
+  .inkbar {
+    height: 28px;
+    width: 100%;
+    font-family: "Geist Mono", ui-monospace, monospace;
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    box-sizing: border-box;
+  }
+  .meta { padding: 10px 12px 12px; font-size: 12px; }
+  .meta b { color: #ededed; }
+  .note {
+    max-width: 52em;
+    margin: 16px 0 0;
+    color: #a1a1a1;
+    font-size: 13px;
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>Archanglic — husk <code>on-error</code></h1>
+  <p class="locked">
+    <strong>Primary locked (c)</strong> void + beam.
+    <strong>on-primary locked (a)</strong> <code>#ededed</code>.
+    <strong>error locked</strong> <code>#eb1000</code>. Do not reopen.
+  </p>
+  <p class="lede">
+    The <strong>Delete label</strong> is the token. Fill is locked <code>#eb1000</code> in every column — only the ink hex changes.
+    The word “Archanglic” is always <code>#ededed</code>. Columns do not stack; scroll sideways.
+  </p>
+
+<pre class="ascii">[ Delete ]
+  ^^^^^^
+  this INK on #eb1000</pre>
+
+  <p class="hint">Queued card. Do not invent a lock. Fill is the locked error red, not the old a/b swatches.</p>
+
+  <div class="board" role="list">
+    <article class="col" role="listitem" id="opt-a">
+      <div class="inkbar" style="background:#ffffff;color:#000">a — THE INK &nbsp; #ffffff</div>
+      <div class="stage">
+        <p class="word">Archanglic</p>
+        <span class="delete" style="color:#ffffff">Delete</span>
+      </div>
+      <p class="meta">
+        <b>a)</b> hot white on Adobe red. vs <code>#ededed</code> 1.17:1 — if the label looks like page text, say so.
+      </p>
+    </article>
+    <article class="col" role="listitem" id="opt-b">
+      <div class="inkbar" style="background:#000000;color:#ededed">b — THE INK &nbsp; #000000</div>
+      <div class="stage">
+        <p class="word">Archanglic</p>
+        <span class="delete" style="color:#000000">Delete</span>
+      </div>
+      <p class="meta">
+        <b>b)</b> void ink on the red fill. Distinct from a.
+      </p>
+    </article>
+    <article class="col" role="listitem" id="opt-c">
+      <div class="inkbar" style="background:#690005;color:#ededed">c — THE INK &nbsp; #690005</div>
+      <div class="stage">
+        <p class="word">Archanglic</p>
+        <span class="delete" style="color:#690005">Delete</span>
+      </div>
+      <p class="meta">
+        <b>c)</b> deep maroon. May collapse into the fill — if you cannot read Delete, do not pick c.
+      </p>
+    </article>
+  </div>
+
+  <p class="note">
+    Reply: <code>on-error: a</code> · <code>b</code> · <code>c</code>. Pico: <code>--arch-on-error</code>.
+    Queued: <a href="./queued.md">queued.md</a>. Pico demo: <a href="../pico-theme-demo.html">pico-theme-demo.html</a>.
+  </p>
+</main>
+</body>
+</html>
